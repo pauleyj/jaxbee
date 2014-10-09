@@ -6,7 +6,7 @@ import com.acme.jaxbee.api.RxFrame;
 /**
  * Created by pauleyj on 10/4/14.
  */
-public class AtCommandResponseFrameFactory implements IRxFrameFactory {
+public class AtCommandResponseFactory implements IRxFrameFactory {
     @Override
     public RxFrame newFrame() {
         return new AtCommandResponse();

@@ -2,7 +2,8 @@ package com.acme.jaxbee;
 
 import com.acme.jaxbee.api.IRxFrameFactory;
 import com.acme.jaxbee.api.RxFrame;
-import com.acme.jaxbee.api.at.AtCommandResponseFrameFactory;
+import com.acme.jaxbee.api.at.AtCommandResponse;
+import com.acme.jaxbee.api.at.AtCommandResponseFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class RxFrameFactory {
         factories = new HashMap<>();
         //
         // add basic rx frame factories
-        addFrameFactory((byte)0x88, new AtCommandResponseFrameFactory());
+        addRxFrameFactory(AtCommandResponse.FRAME_TYPE, new AtCommandResponseFactory());
     }
 
     public RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException {
@@ -28,7 +29,7 @@ public class RxFrameFactory {
         }
     }
 
-    public void addFrameFactory(final byte apiId, final IRxFrameFactory factory) {
+    public void addRxFrameFactory(final byte apiId, final IRxFrameFactory factory) {
         factories.put(apiId, factory);
     }
 }
