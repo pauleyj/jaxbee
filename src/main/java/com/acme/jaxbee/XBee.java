@@ -9,8 +9,9 @@ import java.nio.ByteBuffer;
  * Created by pauleyj on 10/4/14.
  */
 public class XBee {
-    private static final byte START_DELEMITER = (byte)0x7E;
-    private static final int API_FRAME_WRAPPER_LENGTH = 0x04; // start delimiter 1 byte, length 2 bytes, checksum 1 byte
+    private static final byte START_DELEMITER           = (byte)0x7E;
+    private static final byte CHECKSUM_CONSTANT         = (byte)0xFF;
+    private static final int API_FRAME_WRAPPER_LENGTH   = 0x04; // start delimiter 1 byte, length 2 bytes, checksum 1 byte
 
     private XBeeCommunications communications;
     private RxFrameFactory rxFrameFactory;
@@ -33,7 +34,7 @@ public class XBee {
             buffer.put(b);
             checksum += b;
         }
-        checksum = (byte) (((byte) 0xFF - checksum) & (byte) 0xFF);
+        checksum = (byte) ((CHECKSUM_CONSTANT - checksum) & CHECKSUM_CONSTANT);
         buffer.put(checksum);
         communications.onSend(buffer.array());
     }
