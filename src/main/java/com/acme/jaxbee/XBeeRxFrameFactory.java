@@ -14,17 +14,29 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee.api.at;
+package com.acme.jaxbee;
 
-import com.acme.jaxbee.api.RxFrameFactory;
 import com.acme.jaxbee.api.RxFrame;
+import com.acme.jaxbee.api.RxFrameFactory;
 
 /**
- * The type At command response factory.
+ * The interface X bee rx frame factory.
  */
-public class AtCommandResponseFactory implements RxFrameFactory {
-    @Override
-    public RxFrame newFrame() {
-        return new AtCommandResponse();
-    }
+public interface XBeeRxFrameFactory {
+    /**
+     * New rx frame for api id.
+     *
+     * @param apiId the api id
+     * @return the rx frame
+     * @throws XBeeException the x bee exception
+     */
+    RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException;
+
+    /**
+     * Add rx frame factory for api id.
+     *
+     * @param apiId the api id
+     * @param factory the factory
+     */
+    void addRxFrameFactoryForApiId(final byte apiId, final RxFrameFactory factory);
 }

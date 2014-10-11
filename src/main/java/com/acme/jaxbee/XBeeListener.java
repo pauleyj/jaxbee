@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-apply plugin: 'java'
+package com.acme.jaxbee;
 
-sourceCompatibility = 1.7
-version = '1.0'
+import com.acme.jaxbee.api.RxFrame;
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+/**
+ * The interface X bee listener.
+ */
+public interface XBeeListener {
+    /**
+     * On receive frame.
+     *
+     * @param frame the frame
+     */
+    void onReceiveFrame(final RxFrame frame);
 }

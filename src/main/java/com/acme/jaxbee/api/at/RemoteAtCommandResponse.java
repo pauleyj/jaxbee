@@ -21,17 +21,25 @@ import com.acme.jaxbee.api.RxFrame;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-/**
- * The type At command response.
- */
-public class AtCommandResponse extends RxFrame {
+public class RemoteAtCommandResponse extends RxFrame {
     private static final byte AT_COMMAND_LENGTH = 0x02;
+    private static final byte ADDRESS64_LENGTH = 0x08;
+    private static final byte ADDRESS16_LENGTH = 0x02;
     private static final byte BUFFER_ALLOCATION_CHUNK_SIZE = 0x04;
+
     private enum State {
         /**
          * The FRAME_ID.
          */
         FRAME_ID,
+        /**
+         * The ADDRESS64.
+         */
+        ADDRESS64,
+        /**
+         * The ADDRESS16.
+         */
+        ADDRESS16,
         /**
          * The AT_COMMAND.
          */
@@ -49,7 +57,7 @@ public class AtCommandResponse extends RxFrame {
     /**
      * The constant FRAME_TYPE.
      */
-    public static final byte FRAME_TYPE = (byte) 0x88;
+    public static final byte FRAME_TYPE = (byte) 0x97;
 
     /**
      * The enum Status.
@@ -72,6 +80,10 @@ public class AtCommandResponse extends RxFrame {
          */
         INVALID_PARAMETER,
         /**
+         * The REMOTE_COMMAND_TX_FAILURE.
+         */
+        REMOTE_COMMAND_TX_FAILURE,
+        /**
          * The UNDEFINED.
          */
         UNDEFINED;
@@ -92,6 +104,8 @@ public class AtCommandResponse extends RxFrame {
                     return INVALID_COMMAND;
                 case 3:
                     return INVALID_PARAMETER;
+                case 4:
+                    return REMOTE_COMMAND_TX_FAILURE;
                 default:
                     return UNDEFINED;
             }
@@ -99,20 +113,42 @@ public class AtCommandResponse extends RxFrame {
     }
 
     private byte index;
+    private long sourceAddress64;
+    private short sourceAddress16;
     private ByteBuffer command;
     private byte status;
     private ByteBuffer data;
     private State state;
 
     /**
-     * Instantiates a new At command response.
+     * Instantiates a new Remote at command response.
      */
-    public AtCommandResponse() {
+    public RemoteAtCommandResponse() {
         index = 0;
+        sourceAddress64 = 0;
+        sourceAddress16 = 0;
         command = ByteBuffer.allocate(2);
         status = (byte) 0xFF;
         data = null;
         state = State.FRAME_ID;
+    }
+
+    /**
+     * Gets source address 64.
+     *
+     * @return the source address 64
+     */
+    public long getSourceAddress64() {
+        return sourceAddress64;
+    }
+
+    /**
+     * Gets source address 16.
+     *
+     * @return the source address 16
+     */
+    public short getSourceAddress16() {
+        return sourceAddress16;
     }
 
     /**
@@ -157,6 +193,10 @@ public class AtCommandResponse extends RxFrame {
     public void receive(byte b) {
         if (State.FRAME_ID == state) {
             handleStateFrameId(b);
+        } else if (State.ADDRESS64 == state) {
+            handleStateAddress64(b);
+        } else if (State.ADDRESS16 == state) {
+            handleStateAddress16(b);
         } else if (State.AT_COMMAND == state) {
             handleStateAtCommand(b);
         } else if (State.COMMAND_STATUS == state) {
@@ -191,10 +231,26 @@ public class AtCommandResponse extends RxFrame {
         }
     }
 
+    private void handleStateAddress16(byte b) {
+        sourceAddress16 = ByteBuffer.allocate(ADDRESS16_LENGTH).putShort(0, sourceAddress16).put(index++, b).getShort();
+        if (index == ADDRESS16_LENGTH) {
+            index = 0;
+            state = State.AT_COMMAND;
+        }
+    }
+
+    private void handleStateAddress64(byte b) {
+        sourceAddress64 = ByteBuffer.allocate(ADDRESS64_LENGTH).putLong(0, sourceAddress64).put(index++, b).getLong();
+        if (index == ADDRESS64_LENGTH) {
+            index = 0;
+            state = State.ADDRESS16;
+        }
+    }
+
     private void handleStateFrameId(byte b) {
         setFrameId(b);
         index = 0;
-        state = State.AT_COMMAND;
+        state = State.ADDRESS64;
     }
 
     @Override
@@ -202,6 +258,8 @@ public class AtCommandResponse extends RxFrame {
         return new StringBuffer()
             .append('{')
             .append("\"frameId\" : ").append(getFrameId()).append(", ")
+            .append("\"sourceAddress64\" : ").append(String.format("0x%08x", sourceAddress64)).append(", ")
+            .append("\"sourceAddress16\" : ").append(String.format("0x%02x", sourceAddress16)).append(", ")
             .append("\"command\" : ").append('"').append(new String(command.array())).append('"').append(", ")
             .append("\"status\" : ").append('"').append(getStatus()).append('"').append(", ")
             .append("\"data\" : ").append('"').append(new String(getData())).append('"')
