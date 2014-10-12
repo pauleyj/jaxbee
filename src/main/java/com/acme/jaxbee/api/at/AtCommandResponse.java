@@ -28,21 +28,9 @@ public class AtCommandResponse extends RxFrame {
     private static final byte AT_COMMAND_LENGTH = 0x02;
     private static final byte BUFFER_ALLOCATION_CHUNK_SIZE = 0x04;
     private enum State {
-        /**
-         * The FRAME_ID.
-         */
         FRAME_ID,
-        /**
-         * The AT_COMMAND.
-         */
         AT_COMMAND,
-        /**
-         * The COMMAND_STATUS.
-         */
         COMMAND_STATUS,
-        /**
-         * The COMMAND_DATA.
-         */
         COMMAND_DATA
     }
 
@@ -55,25 +43,10 @@ public class AtCommandResponse extends RxFrame {
      * The enum Status.
      */
     public static enum Status {
-        /**
-         * The OK.
-         */
         OK,
-        /**
-         * The ERROR.
-         */
         ERROR,
-        /**
-         * The INVALID_COMMAND.
-         */
         INVALID_COMMAND,
-        /**
-         * The INVALID_PARAMETER.
-         */
         INVALID_PARAMETER,
-        /**
-         * The UNDEFINED.
-         */
         UNDEFINED;
 
         /**
@@ -110,7 +83,7 @@ public class AtCommandResponse extends RxFrame {
     public AtCommandResponse() {
         index = 0;
         command = ByteBuffer.allocate(2);
-        status = (byte) 0xFF;
+        status = Byte.MIN_VALUE;
         data = null;
         state = State.FRAME_ID;
     }

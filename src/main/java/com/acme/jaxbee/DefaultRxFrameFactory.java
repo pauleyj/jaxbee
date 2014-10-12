@@ -19,6 +19,10 @@ package com.acme.jaxbee;
 import com.acme.jaxbee.api.RxFrame;
 import com.acme.jaxbee.api.RxFrameFactory;
 import com.acme.jaxbee.api.at.*;
+import com.acme.jaxbee.api.nii.NodeIdentificationIndicator;
+import com.acme.jaxbee.api.nii.NodeIdentificationIndicatorFactory;
+import com.acme.jaxbee.api.status.ModemStatus;
+import com.acme.jaxbee.api.status.ModemStatusFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +42,8 @@ class DefaultRxFrameFactory implements XBeeRxFrameFactory {
         // add basic rx frame factories
         addRxFrameFactoryForApiId(AtCommandResponse.FRAME_TYPE, new AtCommandResponseFactory());
         addRxFrameFactoryForApiId(RemoteAtCommandResponse.FRAME_TYPE, new RemoteAtCommandResponseFactory());
+        addRxFrameFactoryForApiId(ModemStatus.FRAME_TYPE, new ModemStatusFactory());
+        addRxFrameFactoryForApiId(NodeIdentificationIndicator.FRAME_TYPE, new NodeIdentificationIndicatorFactory());
     }
 
     public RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException {

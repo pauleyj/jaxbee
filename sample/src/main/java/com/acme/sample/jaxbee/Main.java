@@ -66,7 +66,7 @@ public class Main {
                     for (final byte b : buffer) {
                         builder.append(String.format("0x%02x", b)).append(' ');
                     }
-                    System.out.println(builder.toString());
+//                    System.out.println(builder.toString());
                     try {
                         serialPort.writeBytes(buffer);
                     } catch (SerialPortException e) {
@@ -127,7 +127,7 @@ public class Main {
                 //Read data, if 10 bytes available
                 try {
                     byte buffer[] = serialPort.readBytes(1);
-                    System.out.println(String.format("0x%02x", buffer[0]));
+//                    System.out.println(String.format("serialEvent: 0x%02x", buffer[0]));
                     xbee.rx(buffer[0]);
                 } catch (SerialPortException ex) {
                     System.out.println(ex);

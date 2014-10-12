@@ -28,30 +28,12 @@ public class RemoteAtCommandResponse extends RxFrame {
     private static final byte BUFFER_ALLOCATION_CHUNK_SIZE = 0x04;
 
     private enum State {
-        /**
-         * The FRAME_ID.
-         */
         FRAME_ID,
-        /**
-         * The ADDRESS64.
-         */
         ADDRESS64,
-        /**
-         * The ADDRESS16.
-         */
         ADDRESS16,
-        /**
-         * The AT_COMMAND.
-         */
         AT_COMMAND,
-        /**
-         * The COMMAND_STATUS.
-         */
         COMMAND_STATUS,
-        /**
-         * The COMMAND_DATA.
-         */
-        COMMAND_DATA
+        COMMAND_DATA,
     }
 
     /**
@@ -63,29 +45,11 @@ public class RemoteAtCommandResponse extends RxFrame {
      * The enum Status.
      */
     public static enum Status {
-        /**
-         * The OK.
-         */
         OK,
-        /**
-         * The ERROR.
-         */
         ERROR,
-        /**
-         * The INVALID_COMMAND.
-         */
         INVALID_COMMAND,
-        /**
-         * The INVALID_PARAMETER.
-         */
         INVALID_PARAMETER,
-        /**
-         * The REMOTE_COMMAND_TX_FAILURE.
-         */
         REMOTE_COMMAND_TX_FAILURE,
-        /**
-         * The UNDEFINED.
-         */
         UNDEFINED;
 
         /**
@@ -125,10 +89,10 @@ public class RemoteAtCommandResponse extends RxFrame {
      */
     public RemoteAtCommandResponse() {
         index = 0;
-        sourceAddress64 = 0;
-        sourceAddress16 = 0;
+        sourceAddress64 = Long.MIN_VALUE;
+        sourceAddress16 = Short.MIN_VALUE;
         command = ByteBuffer.allocate(2);
-        status = (byte) 0xFF;
+        status = (byte) Byte.MIN_VALUE;
         data = null;
         state = State.FRAME_ID;
     }
