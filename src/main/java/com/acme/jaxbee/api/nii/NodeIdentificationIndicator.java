@@ -21,9 +21,6 @@ import com.acme.jaxbee.api.RxFrame;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-/**
- * Created by pauleyj on 10/11/14.
- */
 public class NodeIdentificationIndicator extends RxFrame {
     private static final byte ADDRESS64_LENGTH = 0x08;
     private static final byte ADDRESS16_LENGTH = 0x02;

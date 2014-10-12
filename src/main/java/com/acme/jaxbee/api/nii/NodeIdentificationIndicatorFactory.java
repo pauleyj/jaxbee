@@ -18,11 +18,7 @@ package com.acme.jaxbee.api.nii;
 
 import com.acme.jaxbee.api.RxFrame;
 import com.acme.jaxbee.api.RxFrameFactory;
-import com.acme.jaxbee.api.status.ModemStatus;
 
-/**
- * Created by pauleyj on 10/12/14.
- */
 public class NodeIdentificationIndicatorFactory implements RxFrameFactory{
     @Override
     public RxFrame newFrame() {

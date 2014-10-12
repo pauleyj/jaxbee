@@ -16,8 +16,8 @@
 
 package com.acme.jaxbee.api.at;
 
-import com.acme.jaxbee.api.RxFrameFactory;
 import com.acme.jaxbee.api.RxFrame;
+import com.acme.jaxbee.api.RxFrameFactory;
 
 /**
  * The type At command response factory.

@@ -18,7 +18,10 @@ package com.acme.jaxbee;
 
 import com.acme.jaxbee.api.RxFrame;
 import com.acme.jaxbee.api.RxFrameFactory;
-import com.acme.jaxbee.api.at.*;
+import com.acme.jaxbee.api.at.AtCommandResponse;
+import com.acme.jaxbee.api.at.AtCommandResponseFactory;
+import com.acme.jaxbee.api.at.RemoteAtCommandResponse;
+import com.acme.jaxbee.api.at.RemoteAtCommandResponseFactory;
 import com.acme.jaxbee.api.nii.NodeIdentificationIndicator;
 import com.acme.jaxbee.api.nii.NodeIdentificationIndicatorFactory;
 import com.acme.jaxbee.api.status.ModemStatus;
