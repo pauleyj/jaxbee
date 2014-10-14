@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee.api.tx64;
+package com.acme.jaxbee.api.tx;
 
 import com.acme.jaxbee.XBee;
 import com.acme.jaxbee.XBeeException;

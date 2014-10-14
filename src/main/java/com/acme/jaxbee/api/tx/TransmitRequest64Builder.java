@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee.api.tx64;
+package com.acme.jaxbee.api.tx;
 
 import com.acme.jaxbee.XBee;
 import com.acme.jaxbee.XBeeException;
 import com.acme.jaxbee.api.TxFrame;
 import com.acme.jaxbee.api.TxFrameBuilder;
 
-/**
- * Created by pauleyj on 10/12/14.
- */
 public class TransmitRequest64Builder implements TxFrameBuilder {
 
     private byte frameId;

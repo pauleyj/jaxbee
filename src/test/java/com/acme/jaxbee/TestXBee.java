@@ -107,9 +107,7 @@ public class TestXBee {
                     (byte) 0x43, (byte) 0x6f, (byte) 0x6f, (byte) 0x72,
                     (byte) 0x64, (byte) 0x69, (byte) 0x6e, (byte) 0x61,
                     (byte) 0x74, (byte) 0x6f, (byte) 0x72, (byte) 0xe5};
-                for (byte b : response) {
-                    xbee.rx(b);
-                }
+                xbee.rx(response);
                 return null;
             }
         }).when(communications).onSend(any(byte[].class));

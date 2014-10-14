@@ -18,12 +18,11 @@ package com.acme.sample.jaxbee;
 
 import com.acme.jaxbee.*;
 import com.acme.jaxbee.api.RxFrame;
-import com.acme.jaxbee.api.TxFrame;
 import com.acme.jaxbee.api.at.AtCommandBuilder;
 import com.acme.jaxbee.api.at.Commands;
 import com.acme.jaxbee.api.at.RemoteAtCommandBuilder;
-import com.acme.jaxbee.api.tx64.TransmitRequest64;
-import com.acme.jaxbee.api.tx64.TransmitRequest64Builder;
+import com.acme.jaxbee.api.tx.TransmitRequest64Builder;
+import com.acme.jaxbee.api.tx.ZigBeeTransmitRequestBuilder;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -31,7 +30,6 @@ import jssc.SerialPortException;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -99,7 +97,7 @@ public class Main {
                     new AtCommandBuilder()
                         .setFrameId((byte) 0x01)
                         .setCommand(Commands.NI);
-                xbee.tx(atCommandBuilder.build());
+//                xbee.tx(atCommandBuilder.build());
 
                 RemoteAtCommandBuilder remoteAtCommandBuilder =
                     new RemoteAtCommandBuilder()
@@ -107,14 +105,20 @@ public class Main {
                         .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
                         .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
                         .setCommand(Commands.NI);
-                xbee.tx(remoteAtCommandBuilder.build());
+//                xbee.tx(remoteAtCommandBuilder.build());
 
-                TransmitRequest64Builder transmitRequest64Builder =
-                    new TransmitRequest64Builder()
-                        .setFrameId((byte) 0x03)
-                        .setDestinationAddress64(0x13a200403203abL)
-                        .setData("Hello".getBytes());
-                xbee.tx(transmitRequest64Builder.build());
+//                TransmitRequest64Builder transmitRequest64Builder =
+//                    new TransmitRequest64Builder()
+//                        .setFrameId((byte) 0x03)
+//                        .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
+//                        .setData("Hello".getBytes());
+//                xbee.tx(transmitRequest64Builder.build());
+
+                ZigBeeTransmitRequestBuilder zigBeeTransmitRequestBuilder =
+                    new ZigBeeTransmitRequestBuilder()
+                    .setFrameId((byte)0x04)
+                    .setData("Hello world!".getBytes());
+                xbee.tx(zigBeeTransmitRequestBuilder.build());
             } catch (XBeeException e) {
                 e.printStackTrace();
             }
