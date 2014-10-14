@@ -121,7 +121,7 @@ public class XBee {
      *
      * @param frame the frame
      */
-    public synchronized void tx(final TxFrame frame) {
+    public void tx(final TxFrame frame) throws XBeeException {
         final byte[] data = frame.toBytes();
         final short length = (short) data.length;
         final ByteBuffer buffer =

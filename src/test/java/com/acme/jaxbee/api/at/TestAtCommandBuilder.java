@@ -64,7 +64,7 @@ public class TestAtCommandBuilder {
     @Test
     public void commandRequired() throws XBeeException {
         exception.expect(XBeeException.class);
-        new RemoteAtCommandBuilder().build();
+        new AtCommandBuilder().build();
     }
 
     @Test

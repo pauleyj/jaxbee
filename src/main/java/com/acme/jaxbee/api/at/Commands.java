@@ -17,6 +17,7 @@
 package com.acme.jaxbee.api.at;
 
 public class Commands {
+    private Commands(){}
     //
     // 802.15.4
     /**

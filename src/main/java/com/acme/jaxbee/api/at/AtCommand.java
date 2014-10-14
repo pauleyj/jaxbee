@@ -99,7 +99,10 @@ public class AtCommand extends TxFrame {
     }
 
     @Override
-    public byte[] toBytes() {
+    public byte[] toBytes() throws XBeeException {
+        if (command == null || command.length != AT_COMMAND_LENGTH) {
+            throw new XBeeException("Invalid AT command");
+        }
         // capacity = frame type + frame id + at command + parameter
         final int capacity = API_FRAME_TYPE_LENGTH + API_FRAME_ID_LENGTH + AT_COMMAND_LENGTH + getPrameterLength();
         final ByteBuffer buffer =

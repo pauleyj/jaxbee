@@ -16,6 +16,8 @@
 
 package com.acme.jaxbee.api;
 
+import com.acme.jaxbee.XBeeException;
+
 /**
  * The type Tx frame.
  */
@@ -63,5 +65,5 @@ public abstract class TxFrame {
      *
      * @return the byte [ ]
      */
-    public abstract byte[] toBytes();
+    public abstract byte[] toBytes() throws XBeeException;
 }
