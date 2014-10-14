@@ -77,7 +77,7 @@ public class ModemStatus extends RxFrame {
         return Status.from(status);
     }
 
-    public byte rawStatus() {
+    public byte getStatusValue() {
         return status;
     }
 
