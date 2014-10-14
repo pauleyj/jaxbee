@@ -39,6 +39,7 @@ public class XBee {
      * The constant BROADCAST_ADDRESS_16.
      */
     public static final short BROADCAST_ADDRESS_16 = (short) 0xFFFE;
+
     // xbee state machine states
     private enum XBeeState {
         /**
@@ -62,6 +63,7 @@ public class XBee {
          */
         STATE_FRAME_CHECKSUM_VALIDATION // Checksum
     }
+
     // xbee serial i/o interface
     private XBeeCommunications communications;
     // rx frame listener
@@ -84,7 +86,7 @@ public class XBee {
      * Instantiates a new X bee.
      *
      * @param communications the communications
-     * @param listener the listener
+     * @param listener       the listener
      */
     public XBee(final XBeeCommunications communications, final XBeeListener listener) {
         this(communications, listener, new DefaultRxFrameFactory());
@@ -94,8 +96,8 @@ public class XBee {
      * Instantiates a new X bee.
      *
      * @param communications the communications
-     * @param listener the listener
-     * @param factory the factory
+     * @param listener       the listener
+     * @param factory        the factory
      */
     public XBee(final XBeeCommunications communications, final XBeeListener listener, XBeeRxFrameFactory factory) {
         this.communications = communications;
@@ -107,7 +109,7 @@ public class XBee {
     /**
      * Add rx frame factory for api id.
      *
-     * @param apiId the api id
+     * @param apiId   the api id
      * @param factory the factory
      */
     public void addRxFrameFactoryForApiId(final byte apiId, final RxFrameFactory factory) {
@@ -119,7 +121,7 @@ public class XBee {
      *
      * @param frame the frame
      */
-    public void tx(final TxFrame frame) {
+    public synchronized void tx(final TxFrame frame) {
         final byte[] data = frame.toBytes();
         final short length = (short) data.length;
         final ByteBuffer buffer =
@@ -137,6 +139,14 @@ public class XBee {
         communications.onFlushSendBuffer();
     }
 
+
+    public void rx(final byte[] buffer) {
+        if (buffer != null && buffer.length > 0) {
+            for (final byte b : buffer) {
+                rx(b);
+            }
+        }
+    }
 
     /**
      * Rx void.
@@ -171,15 +181,18 @@ public class XBee {
     }
 
     private void handleStateFrameChecksumValidation(byte b) {
-        rxFrameDataChecksum += b;
-        // validate checksum
-        if (XBEE_FRAME_VALID_CHECKSUM == rxFrameDataChecksum) {
-            // todo: notify of received frame
-            listener.onReceiveFrame(current);
-        } else {
-            // todo: notify listener of invalid frame rx?
+        try {
+            rxFrameDataChecksum += b;
+            // validate checksum
+            if (XBEE_FRAME_VALID_CHECKSUM == rxFrameDataChecksum) {
+                // todo: notify of received frame
+                listener.onReceiveFrame(current);
+            } else {
+                // todo: notify listener of invalid frame rx?
+            }
+        } finally {
+            state = XBeeState.STATE_FRAME_WAIT_START;
         }
-        state = XBeeState.STATE_FRAME_WAIT_START;
     }
 
     private void handleStateFrameData(byte b) {

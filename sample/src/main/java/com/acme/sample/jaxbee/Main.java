@@ -22,17 +22,22 @@ import com.acme.jaxbee.api.TxFrame;
 import com.acme.jaxbee.api.at.AtCommandBuilder;
 import com.acme.jaxbee.api.at.Commands;
 import com.acme.jaxbee.api.at.RemoteAtCommandBuilder;
+import com.acme.jaxbee.api.tx64.TransmitRequest64;
+import com.acme.jaxbee.api.tx64.TransmitRequest64Builder;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
 
     static SerialPort serialPort;
     static XBee xbee;
+    static ExecutorService executor;
 
     public static void main(final String[] args) {
         System.out.println("Hello world, I talk XBee!");
@@ -49,6 +54,8 @@ public class Main {
             serialPort.setEventsMask(mask);//Set mask
             serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
 
+            executor = Executors.newSingleThreadExecutor();
+
             XBeeCommunications communications = new XBeeCommunications() {
                 @Override
                 public void onSend(byte b) {
@@ -62,11 +69,11 @@ public class Main {
 
                 @Override
                 public void onSend(byte[] buffer) {
-                    StringBuilder builder = new StringBuilder();
+                    StringBuilder builder = new StringBuilder("TX --> ");
                     for (final byte b : buffer) {
                         builder.append(String.format("0x%02x", b)).append(' ');
                     }
-//                    System.out.println(builder.toString());
+                    System.out.println(builder.toString());
                     try {
                         serialPort.writeBytes(buffer);
                     } catch (SerialPortException e) {
@@ -76,11 +83,7 @@ public class Main {
 
                 @Override
                 public void onFlushSendBuffer() {
-                    try {
-                        serialPort.purgePort(SerialPort.PURGE_RXCLEAR | SerialPort.PURGE_TXCLEAR);
-                    } catch (SerialPortException e) {
-                        e.printStackTrace();
-                    }
+
                 }
             };
             XBeeListener listener = new XBeeListener() {
@@ -98,13 +101,20 @@ public class Main {
                         .setCommand(Commands.NI);
                 xbee.tx(atCommandBuilder.build());
 
-//                RemoteAtCommandBuilder remoteAtCommandBuilder =
-//                    new RemoteAtCommandBuilder()
-//                    .setFrameId((byte)0x02)
-//                    .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
-//                    .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
-//                    .setCommand(Commands.NI);
-//                xbee.tx(remoteAtCommandBuilder.build());
+                RemoteAtCommandBuilder remoteAtCommandBuilder =
+                    new RemoteAtCommandBuilder()
+                        .setFrameId((byte) 0x02)
+                        .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
+                        .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
+                        .setCommand(Commands.NI);
+                xbee.tx(remoteAtCommandBuilder.build());
+
+                TransmitRequest64Builder transmitRequest64Builder =
+                    new TransmitRequest64Builder()
+                        .setFrameId((byte) 0x03)
+                        .setDestinationAddress64(0x13a200403203abL)
+                        .setData("Hello".getBytes());
+                xbee.tx(transmitRequest64Builder.build());
             } catch (XBeeException e) {
                 e.printStackTrace();
             }
@@ -121,25 +131,28 @@ public class Main {
      */
     static class SerialPortReader implements SerialPortEventListener {
 
-        public void serialEvent(SerialPortEvent event) {
+        public void serialEvent(final SerialPortEvent event) {
             if (event.isRXCHAR()) {//If data is available
-//                if (event.getEventValue() == 10) {//Check bytes count in the input buffer
-                //Read data, if 10 bytes available
+                //Read data
                 try {
-                    byte buffer[] = serialPort.readBytes(1);
-//                    System.out.println(String.format("serialEvent: 0x%02x", buffer[0]));
-                    xbee.rx(buffer[0]);
+                    final int inputBufferBytesCount = event.getEventValue();
+                    final byte[] buffer = serialPort.readBytes(inputBufferBytesCount);
+                    final StringBuilder builder = new StringBuilder("RX <-- ");
+                    for(byte b : buffer){
+                        builder.append(String.format("0x%02x", b)).append(' ');
+                    }
+                    System.out.println(builder.toString());
+                    xbee.rx(buffer);
                 } catch (SerialPortException ex) {
                     System.out.println(ex);
                 }
-//                }
             } else if (event.isCTS()) {//If CTS line has changed state
                 if (event.getEventValue() == 1) {//If line is ON
                     System.out.println("CTS - ON");
                 } else {
                     System.out.println("CTS - OFF");
                 }
-            } else if (event.isDSR()) {///If DSR line has changed state
+            } else if (event.isDSR()) {//If DSR line has changed state
                 if (event.getEventValue() == 1) {//If line is ON
                     System.out.println("DSR - ON");
                 } else {
