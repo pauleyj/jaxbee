@@ -27,7 +27,8 @@ import java.util.Arrays;
 public class AtCommandResponse extends RxFrame {
     private static final byte AT_COMMAND_LENGTH = 0x02;
     private static final byte BUFFER_ALLOCATION_CHUNK_SIZE = 0x04;
-    private enum State {
+
+    enum State {
         FRAME_ID,
         AT_COMMAND,
         COMMAND_STATUS,
@@ -119,6 +120,10 @@ public class AtCommandResponse extends RxFrame {
             data.get(buffer, 0, buffer.length);
         }
         return buffer;
+    }
+
+    State getState() {
+        return state;
     }
 
     @Override

@@ -23,14 +23,14 @@ import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
-public class TestAtCommandBuilder {
+public class AtCommandBuilderTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void apiType() throws XBeeException {
+    public void frameType() throws XBeeException {
         final byte[] command = Commands.NI;
 
         AtCommandBuilder builder = new AtCommandBuilder()
@@ -68,13 +68,21 @@ public class TestAtCommandBuilder {
     }
 
     @Test
+    public void invalidCommand() throws XBeeException {
+        exception.expect(XBeeException.class);
+        new AtCommandBuilder()
+            .setCommand(new byte[]{'I', 'N', 'V', 'A', 'L', 'I', 'D'})
+            .build();
+    }
+
+    @Test
     public void parameters() throws XBeeException {
         final byte[] command = Commands.NI;
         final byte[] parameters = {(byte) 0x00};
 
         AtCommandBuilder builder = new AtCommandBuilder()
-            .setCommand(command)
-            .setParameter(parameters);
+                .setCommand(command)
+                .setParameter(parameters);
 
         assertThat(((AtCommand) builder.build()).getParameter(), is(equalTo(parameters)));
     }

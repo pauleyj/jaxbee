@@ -30,6 +30,7 @@ import jssc.SerialPortException;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -87,7 +88,7 @@ public class Main {
             XBeeListener listener = new XBeeListener() {
                 @Override
                 public void onReceiveFrame(RxFrame frame) {
-                    System.out.println("onReceiveFrame - " + frame.toString());
+                    System.out.println("onReceiveFrame(" + frame.getClass().getSimpleName() + ") - " + frame.toString());
                 }
             };
             xbee = new XBee(communications, listener);
@@ -107,19 +108,26 @@ public class Main {
                         .setCommand(Commands.NI);
 //                xbee.tx(remoteAtCommandBuilder.build());
 
-//                TransmitRequest64Builder transmitRequest64Builder =
-//                    new TransmitRequest64Builder()
-//                        .setFrameId((byte) 0x03)
-//                        .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
-//                        .setData("Hello".getBytes());
-//                xbee.tx(transmitRequest64Builder.build());
+                TransmitRequest64Builder transmitRequest64Builder =
+                    new TransmitRequest64Builder()
+                        .setFrameId((byte) 0x03)
+                        .setDestinationAddress64(0x13a200403203abL)
+                        .setData("Hello".getBytes());
+                xbee.tx(transmitRequest64Builder.build());
 
                 ZigBeeTransmitRequestBuilder zigBeeTransmitRequestBuilder =
                     new ZigBeeTransmitRequestBuilder()
-                    .setFrameId((byte)0x04)
-                    .setData("Hello world!".getBytes());
+                        .setFrameId((byte) 0x04)
+                        .setDestinationAddress64(0x13a200403203abL)
+                        .setDestinationAddress16((short) 0xd9f0)
+                        .setData("Hello world!".getBytes());
                 xbee.tx(zigBeeTransmitRequestBuilder.build());
+
+                TimeUnit.SECONDS.sleep(1);
+                serialPort.closePort();
             } catch (XBeeException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         } catch (SerialPortException e) {
@@ -142,7 +150,7 @@ public class Main {
                     final int inputBufferBytesCount = event.getEventValue();
                     final byte[] buffer = serialPort.readBytes(inputBufferBytesCount);
                     final StringBuilder builder = new StringBuilder("RX <-- ");
-                    for(byte b : buffer){
+                    for (byte b : buffer) {
                         builder.append(String.format("0x%02x", b)).append(' ');
                     }
                     System.out.println(builder.toString());

@@ -27,7 +27,7 @@ public class RemoteAtCommandResponse extends RxFrame {
     private static final byte ADDRESS16_LENGTH = 0x02;
     private static final byte BUFFER_ALLOCATION_CHUNK_SIZE = 0x04;
 
-    private enum State {
+    enum State {
         FRAME_ID,
         ADDRESS64,
         ADDRESS16,
@@ -92,7 +92,7 @@ public class RemoteAtCommandResponse extends RxFrame {
         sourceAddress64 = Long.MIN_VALUE;
         sourceAddress16 = Short.MIN_VALUE;
         command = ByteBuffer.allocate(2);
-        status = (byte) Byte.MIN_VALUE;
+        status = Byte.MIN_VALUE;
         data = null;
         state = State.FRAME_ID;
     }
@@ -140,12 +140,16 @@ public class RemoteAtCommandResponse extends RxFrame {
      */
     public byte[] getData() {
         byte[] buffer = null;
-        if (data != null) {
+        if ( data != null ) {
             buffer = new byte[data.position()];
             data.rewind();
             data.get(buffer, 0, buffer.length);
         }
         return buffer;
+    }
+
+    State getState() {
+        return state;
     }
 
     @Override
@@ -155,26 +159,26 @@ public class RemoteAtCommandResponse extends RxFrame {
 
     @Override
     public void receive(byte b) {
-        if (State.FRAME_ID == state) {
+        if ( State.FRAME_ID == state ) {
             handleStateFrameId(b);
-        } else if (State.ADDRESS64 == state) {
+        } else if ( State.ADDRESS64 == state ) {
             handleStateAddress64(b);
-        } else if (State.ADDRESS16 == state) {
+        } else if ( State.ADDRESS16 == state ) {
             handleStateAddress16(b);
-        } else if (State.AT_COMMAND == state) {
+        } else if ( State.AT_COMMAND == state ) {
             handleStateAtCommand(b);
-        } else if (State.COMMAND_STATUS == state) {
+        } else if ( State.COMMAND_STATUS == state ) {
             handleStateCommandStatus(b);
-        } else if (State.COMMAND_DATA == state) {
+        } else if ( State.COMMAND_DATA == state ) {
             handleStateCommandData(b);
         }
     }
 
     private void handleStateCommandData(byte b) {
-        if (data == null) {
+        if ( data == null ) {
             data = ByteBuffer.allocate(BUFFER_ALLOCATION_CHUNK_SIZE);
         }
-        if (data.position() == data.capacity()) {
+        if ( data.position() == data.capacity() ) {
             final byte[] buffer = Arrays.copyOf(data.array(), data.capacity());
             data = ByteBuffer.allocate(buffer.length + BUFFER_ALLOCATION_CHUNK_SIZE).put(buffer);
         }
