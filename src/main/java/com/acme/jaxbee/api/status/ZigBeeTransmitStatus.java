@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 /**
  * Created by edwardsb on 10/13/14.
  */
-public class TransmitStatus extends RxFrame {
+public class ZigBeeTransmitStatus extends RxFrame {
 
     /**
      * Transmit Status Frame Type
@@ -178,7 +178,7 @@ public class TransmitStatus extends RxFrame {
         return transmitRetryCount;
     }
 
-    public TransmitStatus() {
+    public ZigBeeTransmitStatus() {
         index = 0;
         sourceAddress16 = Short.MIN_VALUE;
         deliveryStatus = Byte.MIN_VALUE;

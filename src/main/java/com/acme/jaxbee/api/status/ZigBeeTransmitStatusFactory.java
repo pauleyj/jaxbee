@@ -6,9 +6,9 @@ import com.acme.jaxbee.api.RxFrameFactory;
 /**
  * Created by edwardsb on 10/14/14.
  */
-public class TransmitStatusFactory implements RxFrameFactory {
+public class ZigBeeTransmitStatusFactory implements RxFrameFactory {
     @Override
     public RxFrame newFrame() {
-        return new TransmitStatus();
+        return new ZigBeeTransmitStatus();
     }
 }
