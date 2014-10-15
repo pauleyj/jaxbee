@@ -25,12 +25,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class TestRemoteAtCommandBuilder {
+public class RemoteAtCommandBuilderTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void apiType() throws XBeeException {
+    public void frameType() throws XBeeException {
         final byte[] command = Commands.NI;
 
         RemoteAtCommandBuilder builder = new RemoteAtCommandBuilder()
@@ -41,7 +41,7 @@ public class TestRemoteAtCommandBuilder {
 
     @Test
     public void frameId() throws XBeeException {
-        final byte frameId = (byte) 0x00;
+        final byte frameId = (byte) 0x01;
         final byte[] command = Commands.NI;
 
         RemoteAtCommandBuilder builder = new RemoteAtCommandBuilder()
@@ -113,5 +113,11 @@ public class TestRemoteAtCommandBuilder {
             .setParameter(parameters);
 
         assertThat(((RemoteAtCommand) builder.build()).getParameter(), is(equalTo(parameters)));
+    }
+
+    @Test
+    public void toBytesWithNullCommand() throws XBeeException {
+        exception.expect(XBeeException.class);
+        new RemoteAtCommandBuilder().build();
     }
 }

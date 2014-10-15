@@ -24,10 +24,7 @@ import com.acme.jaxbee.api.at.RemoteAtCommandResponse;
 import com.acme.jaxbee.api.at.RemoteAtCommandResponseFactory;
 import com.acme.jaxbee.api.nii.NodeIdentificationIndicator;
 import com.acme.jaxbee.api.nii.NodeIdentificationIndicatorFactory;
-import com.acme.jaxbee.api.status.ModemStatus;
-import com.acme.jaxbee.api.status.ModemStatusFactory;
-import com.acme.jaxbee.api.status.TxStatus;
-import com.acme.jaxbee.api.status.TxStatusFactory;
+import com.acme.jaxbee.api.status.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +47,7 @@ class DefaultRxFrameFactory implements XBeeRxFrameFactory {
         addRxFrameFactoryForApiId(ModemStatus.FRAME_TYPE, new ModemStatusFactory());
         addRxFrameFactoryForApiId(TxStatus.FRAME_TYPE, new TxStatusFactory());
         addRxFrameFactoryForApiId(NodeIdentificationIndicator.FRAME_TYPE, new NodeIdentificationIndicatorFactory());
+        addRxFrameFactoryForApiId(ZigBeeTransmitStatus.FRAME_TYPE, new ZigBeeTransmitStatusFactory());
     }
 
     public RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException {
