@@ -123,12 +123,12 @@ public class Main {
                         .setData("Hello world!".getBytes());
                 xbee.tx(zigBeeTransmitRequestBuilder.build());
 
-                TimeUnit.SECONDS.sleep(1);
-                serialPort.closePort();
+//                TimeUnit.SECONDS.sleep(1);
+//                serialPort.closePort();
             } catch (XBeeException e) {
                 e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
             }
         } catch (SerialPortException e) {
             e.printStackTrace();

@@ -69,7 +69,7 @@ public class NodeIdentificationIndicator extends RxFrame {
         }
     }
 
-    private enum State {
+    enum State {
         SOURCE_ADDR_64,
         SOURCE_ADDR_16,
         RECEIVE_OPTS,
@@ -163,6 +163,10 @@ public class NodeIdentificationIndicator extends RxFrame {
 
     public byte[] getManufactureId() {
         return manufactureId.array();
+    }
+
+    State getState() {
+        return state;
     }
 
     @Override
