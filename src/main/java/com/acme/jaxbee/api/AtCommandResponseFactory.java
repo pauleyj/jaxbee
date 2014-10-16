@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee;
+package com.acme.jaxbee.api;
 
 import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.core.RxFrameFactory;
 
 /**
- * The interface X bee listener.
+ * The type At command response factory.
  */
-public interface XBeeListener {
-    /**
-     * On receive frame.
-     *
-     * @param frame the frame
-     */
-    void onReceiveFrame(final RxFrame frame);
+public class AtCommandResponseFactory implements RxFrameFactory {
+    @Override
+    public RxFrame newFrame() {
+        return new AtCommandResponse();
+    }
 }

@@ -16,10 +16,10 @@
 
 package com.acme.jaxbee;
 
-import com.acme.jaxbee.api.RxFrame;
-import com.acme.jaxbee.api.at.AtCommandBuilder;
-import com.acme.jaxbee.api.at.AtCommandResponse;
-import com.acme.jaxbee.api.at.Commands;
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.AtCommandBuilder;
+import com.acme.jaxbee.api.AtCommandResponse;
+import com.acme.jaxbee.api.Commands;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

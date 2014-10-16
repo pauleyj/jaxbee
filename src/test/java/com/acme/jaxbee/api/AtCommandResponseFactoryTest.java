@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee;
+package com.acme.jaxbee.api;
 
+import com.acme.jaxbee.api.AtCommandResponse;
+import com.acme.jaxbee.api.AtCommandResponseFactory;
 import com.acme.jaxbee.api.core.RxFrame;
+import org.junit.Test;
 
-/**
- * The interface X bee listener.
- */
-public interface XBeeListener {
-    /**
-     * On receive frame.
-     *
-     * @param frame the frame
-     */
-    void onReceiveFrame(final RxFrame frame);
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+public class AtCommandResponseFactoryTest {
+    @Test
+    public void testNewFrame() throws Exception {
+        RxFrame frame = new AtCommandResponseFactory().newFrame();
+        assertThat(frame, is(instanceOf(AtCommandResponse.class)));
+    }
 }

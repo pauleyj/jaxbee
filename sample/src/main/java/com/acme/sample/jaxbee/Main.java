@@ -17,12 +17,12 @@
 package com.acme.sample.jaxbee;
 
 import com.acme.jaxbee.*;
-import com.acme.jaxbee.api.RxFrame;
-import com.acme.jaxbee.api.at.AtCommandBuilder;
-import com.acme.jaxbee.api.at.Commands;
-import com.acme.jaxbee.api.at.RemoteAtCommandBuilder;
-import com.acme.jaxbee.api.tx.TransmitRequest64Builder;
-import com.acme.jaxbee.api.tx.ZigBeeTransmitRequestBuilder;
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.AtCommandBuilder;
+import com.acme.jaxbee.api.Commands;
+import com.acme.jaxbee.api.RemoteAtCommandBuilder;
+import com.acme.jaxbee.api.TransmitRequest64Builder;
+import com.acme.jaxbee.api.ZigBeeTransmitRequestBuilder;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -30,7 +30,6 @@ import jssc.SerialPortException;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
 

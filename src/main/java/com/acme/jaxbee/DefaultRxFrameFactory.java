@@ -16,15 +16,9 @@
 
 package com.acme.jaxbee;
 
-import com.acme.jaxbee.api.RxFrame;
-import com.acme.jaxbee.api.RxFrameFactory;
-import com.acme.jaxbee.api.at.AtCommandResponse;
-import com.acme.jaxbee.api.at.AtCommandResponseFactory;
-import com.acme.jaxbee.api.at.RemoteAtCommandResponse;
-import com.acme.jaxbee.api.at.RemoteAtCommandResponseFactory;
-import com.acme.jaxbee.api.nii.NodeIdentificationIndicator;
-import com.acme.jaxbee.api.nii.NodeIdentificationIndicatorFactory;
-import com.acme.jaxbee.api.status.*;
+import com.acme.jaxbee.api.*;
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.core.RxFrameFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +27,7 @@ import java.util.Map;
  * The type Default rx frame factory.
  */
 class DefaultRxFrameFactory implements XBeeRxFrameFactory {
-    private final Map<Byte, com.acme.jaxbee.api.RxFrameFactory> factories;
+    private final Map<Byte, RxFrameFactory> factories;
 
     /**
      * Instantiates a new Default rx frame factory.

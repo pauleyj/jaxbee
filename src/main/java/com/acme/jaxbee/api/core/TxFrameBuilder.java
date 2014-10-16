@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee;
+package com.acme.jaxbee.api.core;
 
-import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.XBeeException;
 
 /**
- * The interface X bee listener.
+ * The interface Tx frame builder.
  */
-public interface XBeeListener {
+public interface TxFrameBuilder {
     /**
-     * On receive frame.
+     * Build tx frame.
      *
-     * @param frame the frame
+     * @return the tx frame
+     * @throws XBeeException the x bee exception
      */
-    void onReceiveFrame(final RxFrame frame);
+    TxFrame build() throws XBeeException;
 }
