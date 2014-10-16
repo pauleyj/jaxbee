@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee;
+package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.*;
 import com.acme.jaxbee.api.core.RxFrame;
 import com.acme.jaxbee.api.core.RxFrameFactory;
+import com.acme.jaxbee.api.core.XBeeException;
+import com.acme.jaxbee.api.core.XBeeRxFrameFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +27,7 @@ import java.util.Map;
 /**
  * The type Default rx frame factory.
  */
-class DefaultRxFrameFactory implements XBeeRxFrameFactory {
+public class DefaultRxFrameFactory implements XBeeRxFrameFactory {
     private final Map<Byte, RxFrameFactory> factories;
 
     /**
@@ -45,7 +46,7 @@ class DefaultRxFrameFactory implements XBeeRxFrameFactory {
     }
 
     public RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException {
-        if(factories.containsKey(apiId)) {
+        if ( factories.containsKey(apiId) ) {
             return factories.get(apiId).newFrame();
         } else {
             throw new XBeeException("Unknown API frame ID");

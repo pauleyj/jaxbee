@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee;
+package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.core.RxFrame;
-import com.acme.jaxbee.api.core.RxFrameFactory;
-import com.acme.jaxbee.api.core.TxFrame;
+import com.acme.jaxbee.api.DefaultRxFrameFactory;
+import com.acme.jaxbee.api.core.*;
 
 import java.nio.ByteBuffer;
 
@@ -67,20 +66,20 @@ public class XBee {
     // xbee serial i/o interface
     private XBeeCommunications communications;
     // rx frame listener
-    private XBeeListener listener;
+    private XBeeListener       listener;
     // the rx frame factory
     private XBeeRxFrameFactory rxFrameFactory;
     // current rx frame
-    private RxFrame current;
+    private RxFrame            current;
     // current state of state machine
-    private XBeeState state;
+    private XBeeState          state;
     // size of data frame
-    private short rxFrameDataSize;
+    private short              rxFrameDataSize;
     // current index of frame data size
-    private byte rxFrameDataSizeByteIndex;
+    private byte               rxFrameDataSizeByteIndex;
     // current index of frame data
-    private short rxFrameDataIndex;
-    private byte rxFrameDataChecksum;
+    private short              rxFrameDataIndex;
+    private byte               rxFrameDataChecksum;
 
     /**
      * Instantiates a new X bee.
@@ -125,11 +124,11 @@ public class XBee {
         final byte[] data = frame.toBytes();
         final short length = (short) data.length;
         final ByteBuffer buffer =
-            ByteBuffer.allocate(API_FRAME_WRAPPER_LENGTH + length)
-                      .put(START_DELEMITER)
-                      .putShort(length);
+                ByteBuffer.allocate(API_FRAME_WRAPPER_LENGTH + length)
+                        .put(START_DELEMITER)
+                        .putShort(length);
         byte checksum = 0;
-        for (final byte b : data) {
+        for ( final byte b : data ) {
             buffer.put(b);
             checksum += b;
         }
@@ -141,8 +140,8 @@ public class XBee {
 
 
     public void rx(final byte[] buffer) {
-        if (buffer != null && buffer.length > 0) {
-            for (final byte b : buffer) {
+        if ( buffer != null && buffer.length > 0 ) {
+            for ( final byte b : buffer ) {
                 rx(b);
             }
         }

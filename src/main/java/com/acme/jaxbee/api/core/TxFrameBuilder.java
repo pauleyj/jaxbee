@@ -16,8 +16,6 @@
 
 package com.acme.jaxbee.api.core;
 
-import com.acme.jaxbee.XBeeException;
-
 /**
  * The interface Tx frame builder.
  */

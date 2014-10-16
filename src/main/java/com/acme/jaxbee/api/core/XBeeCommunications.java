@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee;
+package com.acme.jaxbee.api.core;
 
 /**
  * The interface X bee communications.

@@ -16,13 +16,8 @@
 
 package com.acme.sample.jaxbee;
 
-import com.acme.jaxbee.*;
-import com.acme.jaxbee.api.core.RxFrame;
-import com.acme.jaxbee.api.AtCommandBuilder;
-import com.acme.jaxbee.api.Commands;
-import com.acme.jaxbee.api.RemoteAtCommandBuilder;
-import com.acme.jaxbee.api.TransmitRequest64Builder;
-import com.acme.jaxbee.api.ZigBeeTransmitRequestBuilder;
+import com.acme.jaxbee.api.*;
+import com.acme.jaxbee.api.core.*;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -33,8 +28,8 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    static SerialPort serialPort;
-    static XBee xbee;
+    static SerialPort      serialPort;
+    static XBee            xbee;
     static ExecutorService executor;
 
     public static void main(final String[] args) {
@@ -44,10 +39,10 @@ public class Main {
         try {
             serialPort.openPort();//Open port
             serialPort.setParams(
-                SerialPort.BAUDRATE_9600,
-                SerialPort.DATABITS_8,
-                SerialPort.STOPBITS_1,
-                SerialPort.PARITY_NONE);//Set params
+                    SerialPort.BAUDRATE_9600,
+                    SerialPort.DATABITS_8,
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);//Set params
             int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
             serialPort.setEventsMask(mask);//Set mask
             serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
@@ -60,7 +55,7 @@ public class Main {
 //                    System.out.println(String.format("0x%02x", b));
                     try {
                         serialPort.writeByte(b);
-                    } catch (SerialPortException e) {
+                    } catch ( SerialPortException e ) {
                         e.printStackTrace();
                     }
                 }

@@ -16,7 +16,8 @@
 
 package com.acme.jaxbee;
 
-import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.XBee;
+import com.acme.jaxbee.api.core.*;
 import com.acme.jaxbee.api.AtCommandBuilder;
 import com.acme.jaxbee.api.AtCommandResponse;
 import com.acme.jaxbee.api.Commands;
@@ -39,9 +40,9 @@ public class TestXBee {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    public XBee xbee;
+    public XBee               xbee;
     public XBeeCommunications communications;
-    public XBeeListener listener;
+    public XBeeListener       listener;
 
     @Before
     public void setupTest() {
@@ -72,7 +73,7 @@ public class TestXBee {
 
     @Test
     public void atCommandResponse() throws XBeeException {
-        final byte frameId = (byte)0x01;
+        final byte frameId = (byte) 0x01;
         final byte[] command = Commands.NI;
 
         doAnswer(new Answer<Void>() {
@@ -84,7 +85,7 @@ public class TestXBee {
                 assertThat(args[0], is(instanceOf(RxFrame.class)));
                 assertThat(args[0], is(instanceOf(AtCommandResponse.class)));
 
-                AtCommandResponse response = (AtCommandResponse)args[0];
+                AtCommandResponse response = (AtCommandResponse) args[0];
                 assertThat(response.getFrameType(), is(equalTo(AtCommandResponse.FRAME_TYPE)));
                 assertThat(response.getFrameId(), is(equalTo(frameId)));
                 assertThat(response.getCommand(), is(equalTo(command)));

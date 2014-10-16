@@ -16,10 +16,7 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.XBeeException;
-import com.acme.jaxbee.api.AtCommand;
-import com.acme.jaxbee.api.AtCommandBuilder;
-import com.acme.jaxbee.api.Commands;
+import com.acme.jaxbee.api.core.XBeeException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

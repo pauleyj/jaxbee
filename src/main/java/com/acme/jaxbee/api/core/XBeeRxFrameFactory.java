@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee;
-
-import com.acme.jaxbee.api.core.RxFrame;
-import com.acme.jaxbee.api.core.RxFrameFactory;
+package com.acme.jaxbee.api.core;
 
 /**
  * The interface X bee rx frame factory.
