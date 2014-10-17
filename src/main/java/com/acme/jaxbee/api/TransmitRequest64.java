@@ -16,8 +16,8 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.core.XBeeException;
 import com.acme.jaxbee.api.core.TxFrame;
+import com.acme.jaxbee.api.core.XBeeException;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;

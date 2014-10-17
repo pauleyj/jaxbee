@@ -16,7 +16,6 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.DefaultRxFrameFactory;
 import com.acme.jaxbee.api.core.*;
 
 import java.nio.ByteBuffer;

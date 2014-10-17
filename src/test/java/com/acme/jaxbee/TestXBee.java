@@ -16,11 +16,14 @@
 
 package com.acme.jaxbee;
 
-import com.acme.jaxbee.api.XBee;
-import com.acme.jaxbee.api.core.*;
 import com.acme.jaxbee.api.AtCommandBuilder;
 import com.acme.jaxbee.api.AtCommandResponse;
 import com.acme.jaxbee.api.Commands;
+import com.acme.jaxbee.api.XBee;
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.core.XBeeCommunications;
+import com.acme.jaxbee.api.core.XBeeException;
+import com.acme.jaxbee.api.core.XBeeListener;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

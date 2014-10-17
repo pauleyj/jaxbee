@@ -16,14 +16,12 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.RemoteAtCommandResponse;
-import com.acme.jaxbee.api.RemoteAtCommandResponseFactory;
 import com.acme.jaxbee.api.core.RxFrame;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class RemoteAtCommandResponseFactoryTest {
 

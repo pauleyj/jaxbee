@@ -16,8 +16,6 @@
 
 package com.acme.jaxbee.api.core;
 
-import com.acme.jaxbee.api.core.RxFrame;
-
 /**
  * The interface X bee listener.
  */

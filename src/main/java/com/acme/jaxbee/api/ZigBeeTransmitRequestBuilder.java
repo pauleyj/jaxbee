@@ -16,9 +16,9 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.core.XBeeException;
 import com.acme.jaxbee.api.core.TxFrame;
 import com.acme.jaxbee.api.core.TxFrameBuilder;
+import com.acme.jaxbee.api.core.XBeeException;
 
 public class ZigBeeTransmitRequestBuilder implements TxFrameBuilder {
 

@@ -16,8 +16,6 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.AtCommandResponse;
-import com.acme.jaxbee.api.Commands;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.*;

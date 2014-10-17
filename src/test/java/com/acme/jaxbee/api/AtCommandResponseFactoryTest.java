@@ -16,8 +16,6 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.AtCommandResponse;
-import com.acme.jaxbee.api.AtCommandResponseFactory;
 import com.acme.jaxbee.api.core.RxFrame;
 import org.junit.Test;
 

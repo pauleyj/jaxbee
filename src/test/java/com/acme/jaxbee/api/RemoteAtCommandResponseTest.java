@@ -16,8 +16,6 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.Commands;
-import com.acme.jaxbee.api.RemoteAtCommandResponse;
 import org.junit.Test;
 
 import java.nio.ByteBuffer;

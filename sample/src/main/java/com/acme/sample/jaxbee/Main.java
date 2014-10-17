@@ -17,7 +17,10 @@
 package com.acme.sample.jaxbee;
 
 import com.acme.jaxbee.api.*;
-import com.acme.jaxbee.api.core.*;
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.core.XBeeCommunications;
+import com.acme.jaxbee.api.core.XBeeException;
+import com.acme.jaxbee.api.core.XBeeListener;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
