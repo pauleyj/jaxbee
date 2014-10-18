@@ -43,7 +43,6 @@ public class ModemStatusTest {
     @Test
     public void testGetFrameType() throws Exception {
         ModemStatus frame = new ModemStatus();
-        frame.receive((byte)0x00);
 
         assertThat(frame.getFrameType(), is(equalTo(ModemStatus.FRAME_TYPE)));
     }

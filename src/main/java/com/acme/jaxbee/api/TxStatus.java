@@ -24,13 +24,11 @@ import com.acme.jaxbee.api.core.RxFrame;
 public class TxStatus extends RxFrame {
     public static final byte FRAME_TYPE = (byte) 0x89;
 
-    private enum State {
+    enum State {
         FRAME_ID,
-        STATUS
+        STATUS,
+        DONE
     }
-
-    private byte status;
-    private State state;
 
     public enum Status {
         SUCCESS,
@@ -55,6 +53,9 @@ public class TxStatus extends RxFrame {
         }
     }
 
+    private byte status;
+    private State state;
+
     public TxStatus() {
         status = Byte.MIN_VALUE;
         state = State.FRAME_ID;
@@ -62,6 +63,10 @@ public class TxStatus extends RxFrame {
 
     public Status getStatus() {
         return Status.from(status);
+    }
+
+    State getState() {
+        return state;
     }
 
     @Override
@@ -76,6 +81,7 @@ public class TxStatus extends RxFrame {
             state = State.STATUS;
         } else if (State.STATUS == state) {
             status = b;
+            state = State.DONE;
         }
     }
 
