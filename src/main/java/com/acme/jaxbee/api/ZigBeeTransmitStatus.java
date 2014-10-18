@@ -34,12 +34,16 @@ public class ZigBeeTransmitStatus extends RxFrame {
 
     //
     // the states of the Transmit Status Message ref. page 112 of XBee®/XBee‐PRO® ZB RF Modules
-    private enum State {
+    enum State {
         FRAME_ID,
         ADDRESS16,
         TRANSMIT_RETRY_COUNT,
         DELIVERY_STATUS,
         DISCOVERY_STATUS,
+    }
+
+    State getState() {
+        return state;
     }
 
     /**
@@ -57,8 +61,10 @@ public class ZigBeeTransmitStatus extends RxFrame {
         ROUTE_NOT_FOUND,
         BROADCAST_SOURCE_FAILED_TO_HEAR_NEIGBOR_RELAY_MESSAGE,
         INVALID_BINDING_TABLE_INDEX,
-        RESOURCE_ERROR_TRANMISSION_ERROR,
-        RESOURCE_ERROR_PAYLOAD_TO_LARGE,
+        RESOURCE_ERROR_LACK_FREE_BUFFERS_TIMERS_ETC,
+        ATTEMPTED_BROADCAST_WITH_APS_TRANSMISSION,
+        ATTEMPTED_UNICAST_WITH_APS_TRANSMISSION_BUT_EE0,
+        DATA_PAYLOAD_TOO_LARGE,
         UNDEFINED;
 
         static DeliveryStatus from(byte value) {
@@ -86,9 +92,14 @@ public class ZigBeeTransmitStatus extends RxFrame {
                 case 0x2B:
                     return INVALID_BINDING_TABLE_INDEX;
                 case 0x2C:
-                    return RESOURCE_ERROR_TRANMISSION_ERROR;
                 case 0x32:
-                    return RESOURCE_ERROR_PAYLOAD_TO_LARGE;
+                    return RESOURCE_ERROR_LACK_FREE_BUFFERS_TIMERS_ETC;
+                case 0x2D:
+                    return ATTEMPTED_BROADCAST_WITH_APS_TRANSMISSION;
+                case 0x2E:
+                    return ATTEMPTED_UNICAST_WITH_APS_TRANSMISSION_BUT_EE0;
+                case 0x74:
+                    return DATA_PAYLOAD_TOO_LARGE;
                 default:
                     return UNDEFINED;
             }
@@ -100,6 +111,7 @@ public class ZigBeeTransmitStatus extends RxFrame {
      */
     public static enum DiscoveryStatus {
         NO_DISCOVERY_OVERHEAD,
+        ADDRESS_DISCOVERY,
         ROUTE_DISCOVERY,
         ADDRESS_AND_ROUTE,
         EXTENDED_TIMEOUT_DISCOVERY,
@@ -109,6 +121,8 @@ public class ZigBeeTransmitStatus extends RxFrame {
             switch (value) {
                 case 0:
                     return NO_DISCOVERY_OVERHEAD;
+                case 1:
+                    return ADDRESS_DISCOVERY;
                 case 2:
                     return ROUTE_DISCOVERY;
                 case 3:
@@ -150,7 +164,9 @@ public class ZigBeeTransmitStatus extends RxFrame {
      * 0x25 = Route Not Found
      * 0x26 = Broadcast source failed to hear a neighbor relay the message
      * 0x2B = Invalid binding table index
-     * 0x2C = Resource error lack of free buffers, timers, etc. 0x2D = Attempted broadcast with APS transmission 0x2E = Attempted unicast with APS transmission, but EE=0
+     * 0x2C = Resource error lack of free buffers, timers, etc.
+     * 0x2D = Attempted broadcast with APS transmission
+     * 0x2E = Attempted unicast with APS transmission, but EE=0
      * 0x32 = Resource error lack of free buffers, timers, etc. 0x74 = Data payload too large
      * @return the Delivery Status
      */
@@ -160,7 +176,8 @@ public class ZigBeeTransmitStatus extends RxFrame {
 
     /**
      * Get the DiscoveryStatus of the TX Status Message
-     * 0x00 = No Discovery Overhead 0x01 = Address Discovery
+     * 0x00 = No Discovery Overhead
+     * 0x01 = Address Discovery
      * 0x02 = Route Discovery
      * 0x03 = Address and Route
      * 0x40 = Extended Timeout Discovery
@@ -188,7 +205,7 @@ public class ZigBeeTransmitStatus extends RxFrame {
 
     @Override
     public byte getFrameType() {
-        return 0;
+        return FRAME_TYPE;
     }
 
     @Override
