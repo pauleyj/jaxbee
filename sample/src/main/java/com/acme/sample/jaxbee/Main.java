@@ -95,7 +95,7 @@ public class Main {
                     new AtCommandBuilder()
                         .setFrameId((byte) 0x01)
                         .setCommand(Commands.NI);
-//                xbee.tx(atCommandBuilder.build());
+                xbee.tx(atCommandBuilder.build());
 
                 RemoteAtCommandBuilder remoteAtCommandBuilder =
                     new RemoteAtCommandBuilder()
@@ -103,7 +103,7 @@ public class Main {
                         .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
                         .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
                         .setCommand(Commands.NI);
-//                xbee.tx(remoteAtCommandBuilder.build());
+                xbee.tx(remoteAtCommandBuilder.build());
 
                 TransmitRequest64Builder transmitRequest64Builder =
                     new TransmitRequest64Builder()

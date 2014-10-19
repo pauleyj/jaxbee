@@ -25,7 +25,7 @@ import java.util.Arrays;
  * Created by pauleyj on 10/18/14.
  */
 public class ZigBeeReceivePacket extends RxFrame {
-    public static final byte FRAME_TYPE = (byte) 0x7E;
+    public static final byte FRAME_TYPE = (byte) 0x90;
 
     private static final byte ADDRESS64_LENGTH = 0x08;
     private static final byte ADDRESS16_LENGTH = 0x02;
