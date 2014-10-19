@@ -43,6 +43,7 @@ public class DefaultRxFrameFactory implements XBeeRxFrameFactory {
         addRxFrameFactoryForApiId(TxStatus.FRAME_TYPE, new TxStatusFactory());
         addRxFrameFactoryForApiId(NodeIdentificationIndicator.FRAME_TYPE, new NodeIdentificationIndicatorFactory());
         addRxFrameFactoryForApiId(ZigBeeTransmitStatus.FRAME_TYPE, new ZigBeeTransmitStatusFactory());
+        addRxFrameFactoryForApiId(ZigBeeReceivePacket.FRAME_TYPE, new ZigBeeReceivePacketFactory());
     }
 
     public RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException {
