@@ -20,10 +20,7 @@ import com.acme.jaxbee.api.AtCommandBuilder;
 import com.acme.jaxbee.api.AtCommandResponse;
 import com.acme.jaxbee.api.Commands;
 import com.acme.jaxbee.api.XBee;
-import com.acme.jaxbee.api.core.RxFrame;
-import com.acme.jaxbee.api.core.XBeeCommunications;
-import com.acme.jaxbee.api.core.XBeeException;
-import com.acme.jaxbee.api.core.XBeeListener;
+import com.acme.jaxbee.api.core.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -120,5 +117,42 @@ public class TestXBee {
             .setFrameId(frameId)
             .setCommand(command);
         xbee.tx(builder.build());
+    }
+
+    @Test
+    public void addRxFrameFactoryForApiIdTest() {
+        final RxFrame fooFrame = new RxFrame() {
+            @Override
+            public byte getFrameType() {
+                return (byte)0xF00;
+            }
+
+            @Override
+            public void receive(byte b) {
+
+            }
+        };
+        RxFrameFactory fooFrameFactory = new RxFrameFactory() {
+            @Override
+            public RxFrame newFrame() {
+                return fooFrame;
+            }
+        };
+        xbee.addRxFrameFactoryForApiId((byte)0xFF, fooFrameFactory);
+        doAnswer(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                // test results
+                Object[] args = invocation.getArguments();
+                assertThat(args.length, is(equalTo(1)));
+                assertThat(args[0], is(instanceOf(RxFrame.class)));
+
+                RxFrame response = (RxFrame) args[0];
+                assertThat(response.getFrameType(), is(equalTo((byte)0xF00)));
+                return null;
+            }
+        }).when(listener).onReceiveFrame(any(RxFrame.class));
+        xbee.rx((byte)0xFF);
+
     }
 }
