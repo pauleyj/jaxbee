@@ -200,6 +200,7 @@ public class ZigBeeTransmitStatus extends RxFrame {
         sourceAddress16 = Short.MIN_VALUE;
         deliveryStatus = Byte.MIN_VALUE;
         discoveryStatus = Byte.MIN_VALUE;
+        transmitRetryCount = 0;
         state = State.FRAME_ID;
     }
 

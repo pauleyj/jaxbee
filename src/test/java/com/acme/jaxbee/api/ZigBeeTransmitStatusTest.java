@@ -1,6 +1,9 @@
 package com.acme.jaxbee.api;
 
 import com.acme.jaxbee.api.core.RxFrame;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 import org.hamcrest.CoreMatchers;
 import org.junit.After;
 import org.junit.Before;
@@ -199,7 +202,16 @@ public class ZigBeeTransmitStatusTest {
     @Test
     public void testToString() throws Exception {
 
-        assertThat(frame.toString(), is(notNullValue()));
+        String frameString = frame.toString();
+
+        assertThat(frameString, is(notNullValue()));
+
+        Gson gson = new Gson();
+        Object object = gson.fromJson(frameString, Object.class);
+
+        assertThat(object, is(notNullValue()));
+
+
 
     }
 }
