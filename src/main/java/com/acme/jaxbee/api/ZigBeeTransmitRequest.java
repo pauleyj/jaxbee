@@ -99,7 +99,7 @@ public class ZigBeeTransmitRequest extends TxFrame {
 
     @Override
     public byte getFrameType() {
-        return 0;
+        return FRAME_TYPE;
     }
 
     @Override
