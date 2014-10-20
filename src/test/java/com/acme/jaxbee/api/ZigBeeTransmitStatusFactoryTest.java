@@ -2,11 +2,11 @@ package com.acme.jaxbee.api;
 
 import com.acme.jaxbee.api.core.RxFrame;
 import com.acme.jaxbee.api.core.RxFrameFactory;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class ZigBeeTransmitStatusFactoryTest {
 
