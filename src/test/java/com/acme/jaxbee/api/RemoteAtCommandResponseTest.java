@@ -30,12 +30,12 @@ public class RemoteAtCommandResponseTest {
         final byte[] data =
                 {0x01, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x01, 0x02, 'N', 'I', 0x00, 't', 'e', 's', 't'};
         ByteBuffer buffer = ByteBuffer.wrap(data);
-        RemoteAtCommandResponse response =
+        RemoteAtCommandResponse frame =
                 new RemoteAtCommandResponse();
         for ( byte b : data ) {
-            response.receive(b);
+            frame.receive(b);
         }
-        assertThat(response.getSourceAddress64(), is(equalTo(((ByteBuffer) buffer.position(1)).getLong())));
+        assertThat(frame.getSourceAddress64(), is(equalTo(((ByteBuffer) buffer.position(1)).getLong())));
     }
 
     @Test
@@ -117,8 +117,6 @@ public class RemoteAtCommandResponseTest {
 
     @Test
     public void testReceive() throws Exception {
-        final byte[] data =
-                {0x01, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x01, 0x02, 'N', 'I', 0x05, 't', 'e', 's', 't'};
         RemoteAtCommandResponse response =
                 new RemoteAtCommandResponse();
         assertThat(response.getState(), is(equalTo(RemoteAtCommandResponse.State.FRAME_ID)));

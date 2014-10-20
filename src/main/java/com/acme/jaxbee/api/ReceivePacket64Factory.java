@@ -19,9 +19,9 @@ package com.acme.jaxbee.api;
 import com.acme.jaxbee.api.core.RxFrame;
 import com.acme.jaxbee.api.core.RxFrameFactory;
 
-public class TxStatusFactory implements RxFrameFactory{
+public class ReceivePacket64Factory implements RxFrameFactory{
     @Override
     public RxFrame newFrame() {
-        return new TxStatus();
+        return new ReceivePacket64();
     }
 }

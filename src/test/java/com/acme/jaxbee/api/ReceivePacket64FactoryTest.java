@@ -17,11 +17,17 @@
 package com.acme.jaxbee.api;
 
 import com.acme.jaxbee.api.core.RxFrame;
-import com.acme.jaxbee.api.core.RxFrameFactory;
+import org.junit.Test;
 
-public class TxStatusFactory implements RxFrameFactory{
-    @Override
-    public RxFrame newFrame() {
-        return new TxStatus();
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.*;
+
+public class ReceivePacket64FactoryTest {
+
+    @Test
+    public void testNewFrame() throws Exception {
+        RxFrame frame = new ReceivePacket64Factory().newFrame();
+        assertThat(frame, is(instanceOf(ReceivePacket64.class)));
     }
 }

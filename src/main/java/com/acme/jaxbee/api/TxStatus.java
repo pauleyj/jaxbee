@@ -18,9 +18,6 @@ package com.acme.jaxbee.api;
 
 import com.acme.jaxbee.api.core.RxFrame;
 
-/**
- * Created by pauleyj on 10/13/14.
- */
 public class TxStatus extends RxFrame {
     public static final byte FRAME_TYPE = (byte) 0x89;
 

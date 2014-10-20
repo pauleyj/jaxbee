@@ -20,9 +20,6 @@ import com.acme.jaxbee.api.core.RxFrame;
 
 import java.nio.ByteBuffer;
 
-/**
- * Created by edwardsb on 10/13/14.
- */
 public class ZigBeeTransmitStatus extends RxFrame {
 
     /**
