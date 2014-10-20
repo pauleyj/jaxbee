@@ -26,24 +26,24 @@ public class AtCommandResponseTest {
     public void testGetCommand() throws Exception {
         final byte[] data =
                 {0x01, 'N', 'I', 0x04, 't', 'e', 's', 't'};
-        AtCommandResponse response =
+        AtCommandResponse frame =
                 new AtCommandResponse();
         for ( byte b : data ) {
-            response.receive(b);
+            frame.receive(b);
         }
-        assertThat(response.getCommand(), is(equalTo(Commands.NI)));
+        assertThat(frame.getCommand(), is(equalTo(Commands.NI)));
     }
 
     @Test
     public void testGetStatus() throws Exception {
         final byte[] data =
                 {0x01, 'N', 'I', 0x04, 't', 'e', 's', 't'};
-        AtCommandResponse response =
+        AtCommandResponse frame =
                 new AtCommandResponse();
         for ( byte b : data ) {
-            response.receive(b);
+            frame.receive(b);
         }
-        assertThat(response.getStatus(), is(equalTo(AtCommandResponse.Status.from((byte) 0x04))));
+        assertThat(frame.getStatus(), is(equalTo(AtCommandResponse.Status.from((byte) 0x04))));
     }
 
     @Test
@@ -68,60 +68,60 @@ public class AtCommandResponseTest {
     public void testGetData() throws Exception {
         final byte[] data =
                 {0x01, 'N', 'I', 0x04, 'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '!'};
-        AtCommandResponse response =
+        AtCommandResponse frame =
                 new AtCommandResponse();
         for ( byte b : data ) {
-            response.receive(b);
+            frame.receive(b);
         }
-        assertThat(response.getData(), is(equalTo("hello world!".getBytes())));
+        assertThat(frame.getData(), is(equalTo("hello world!".getBytes())));
     }
 
     @Test
     public void testGetFrameType() throws Exception {
         final byte[] data =
                 {0x01, 'N', 'I', 0x04, 't', 'e', 's', 't'};
-        AtCommandResponse response =
+        AtCommandResponse frame =
                 new AtCommandResponse();
         for ( byte b : data ) {
-            response.receive(b);
+            frame.receive(b);
         }
-        assertThat(response.getFrameType(), is(equalTo(AtCommandResponse.FRAME_TYPE)));
+        assertThat(frame.getFrameType(), is(equalTo(AtCommandResponse.FRAME_TYPE)));
     }
 
     @Test
     public void testReceive() throws Exception {
-        AtCommandResponse response =
+        AtCommandResponse frame =
                 new AtCommandResponse();
-        assertThat(response.getState(), is(equalTo(AtCommandResponse.State.FRAME_ID)));
+        assertThat(frame.getState(), is(equalTo(AtCommandResponse.State.FRAME_ID)));
 
-        response.receive((byte) 0x01);
-        assertThat(response.getState(), is(equalTo(AtCommandResponse.State.AT_COMMAND)));
+        frame.receive((byte) 0x01);
+        assertThat(frame.getState(), is(equalTo(AtCommandResponse.State.AT_COMMAND)));
 
         for ( byte b : Commands.HV ) {
-            assertThat(response.getState(), is(equalTo(AtCommandResponse.State.AT_COMMAND)));
-            response.receive(b);
+            assertThat(frame.getState(), is(equalTo(AtCommandResponse.State.AT_COMMAND)));
+            frame.receive(b);
         }
-        assertThat(response.getState(), is(equalTo(AtCommandResponse.State.COMMAND_STATUS)));
+        assertThat(frame.getState(), is(equalTo(AtCommandResponse.State.COMMAND_STATUS)));
 
-        response.receive((byte) 0x00);
-        assertThat(response.getState(), is(equalTo(AtCommandResponse.State.COMMAND_DATA)));
+        frame.receive((byte) 0x00);
+        assertThat(frame.getState(), is(equalTo(AtCommandResponse.State.COMMAND_DATA)));
 
         for ( byte b : "test".getBytes() ) {
-            response.receive(b);
+            frame.receive(b);
         }
         // never leaves this state
-        assertThat(response.getState(), is(equalTo(AtCommandResponse.State.COMMAND_DATA)));
+        assertThat(frame.getState(), is(equalTo(AtCommandResponse.State.COMMAND_DATA)));
     }
 
     @Test
     public void testToString() throws Exception {
         final byte[] data =
                 {0x01, 'N', 'I', 0x04, 't', 'e', 's', 't'};
-        AtCommandResponse response =
+        AtCommandResponse frame =
                 new AtCommandResponse();
         for ( byte b : data ) {
-            response.receive(b);
+            frame.receive(b);
         }
-        assertThat(response.toString(), is(notNullValue()));
+        assertThat(frame.toString(), is(notNullValue()));
     }
 }

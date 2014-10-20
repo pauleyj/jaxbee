@@ -19,9 +19,6 @@ package com.acme.jaxbee.api;
 import com.acme.jaxbee.api.core.RxFrame;
 import com.acme.jaxbee.api.core.RxFrameFactory;
 
-/**
- * Created by pauleyj on 10/18/14.
- */
 public class ZigBeeReceivePacketFactory implements RxFrameFactory {
     @Override
     public RxFrame newFrame() {
