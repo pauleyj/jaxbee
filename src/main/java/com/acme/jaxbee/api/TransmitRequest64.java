@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 public class TransmitRequest64 extends TxFrame {
-    private static final byte FRAME_TYPE = 0x00;
+    public static final byte FRAME_TYPE = 0x00;
     public static final int MAX_DATA_BYTES = 100;
     private static final byte ADDRESS64_LENGTH = 0x08;
     private static final byte OPTIONS_LENGTH = 0x01;

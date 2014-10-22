@@ -38,7 +38,7 @@ public class Main {
     public static void main(final String[] args) {
         System.out.println("Hello world, I talk XBee!");
 
-        serialPort = new SerialPort("/dev/tty.usbserial-A800cGqh");
+        serialPort = new SerialPort("/dev/tty.usbserial-000012FD");
         try {
             serialPort.openPort();//Open port
             serialPort.setParams(
@@ -157,9 +157,9 @@ public class Main {
                 }
             } else if (event.isCTS()) {//If CTS line has changed state
                 if (event.getEventValue() == 1) {//If line is ON
-                    System.out.println("CTS - ON");
+//                    System.out.println("CTS - ON");
                 } else {
-                    System.out.println("CTS - OFF");
+//                    System.out.println("CTS - OFF");
                 }
             } else if (event.isDSR()) {//If DSR line has changed state
                 if (event.getEventValue() == 1) {//If line is ON
