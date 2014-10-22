@@ -16,6 +16,7 @@
 
 package com.acme.jaxbee.api;
 
+import com.acme.jaxbee.api.core.TxFrame;
 import com.acme.jaxbee.api.core.XBeeException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,22 +28,22 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
-public class TransmitRequest64Test {
+public class TransmitRequest16Test {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void testDestinationAddress64() throws Exception {
-        final long destinationAddress64 = 0x0123456789ABCDEFL;
-        TransmitRequest64 frame = new TransmitRequest64()
-            .setDestinationAddress64(destinationAddress64);
-        assertThat(frame.getDestinationAddress64(), is(equalTo(destinationAddress64)));
+    public void testDestinationAddress16() throws Exception {
+        final short destinationAddress16 = XBee.BROADCAST_ADDRESS_16;
+        TransmitRequest16 frame = new TransmitRequest16()
+            .setDestinationAddress16(destinationAddress16);
+        assertThat(frame.getDestinationAddress16(), is(equalTo(destinationAddress16)));
     }
 
     @Test
     public void testOptions() throws Exception {
         final byte options = 0x01;
-        TransmitRequest64 frame = new TransmitRequest64()
+        TransmitRequest16 frame = new TransmitRequest16()
             .setOptions(options);
         assertThat(frame.getOptions(), is(equalTo(options)));
     }
@@ -50,7 +51,7 @@ public class TransmitRequest64Test {
     @Test
     public void testData() throws Exception {
         byte[] data = {0x00, 0x01, 0x02};
-        TransmitRequest64 frame = new TransmitRequest64()
+        TransmitRequest16 frame = new TransmitRequest16()
             .setData(data);
         assertThat(frame.getData(), is(equalTo(data)));
     }
@@ -58,39 +59,39 @@ public class TransmitRequest64Test {
     @Test
     public void testNullData() throws Exception {
         exception.expect(XBeeException.class);
-        new TransmitRequest64()
+        new TransmitRequest16()
             .setData(null);
     }
 
     @Test
     public void testTooMuchData() throws Exception {
         exception.expect(XBeeException.class);
-        ByteBuffer buffer = ByteBuffer.allocate(TransmitRequest64.MAX_DATA_BYTES + 1);
-        new TransmitRequest64()
+        ByteBuffer buffer = ByteBuffer.allocate(TransmitRequest16.MAX_DATA_BYTES + 1);
+        new TransmitRequest16()
             .setData(buffer.array());
     }
 
     @Test
     public void testLargeData() throws Exception {
         final String data = "Hello world! This is a bunch of data...";
-        TransmitRequest64 frame = new TransmitRequest64()
+        TransmitRequest16 frame = new TransmitRequest16()
             .setData(data.getBytes());
         assertThat(frame.getData(), is(equalTo(data.getBytes())));
     }
 
     @Test
     public void testFrameType() throws Exception {
-        TransmitRequest64 frame = new TransmitRequest64();
-        assertThat(frame.getFrameType(), is(equalTo(TransmitRequest64.FRAME_TYPE)));
+        TransmitRequest16 frame = new TransmitRequest16();
+        assertThat(frame.getFrameType(), is(equalTo(TransmitRequest16.FRAME_TYPE)));
     }
 
     @Test
     public void testToBytes() throws Exception {
-        byte[] expected = {(byte) 0x00, (byte) 0x03, (byte) 0x00, (byte) 0x13, (byte) 0xa2, (byte) 0x00, (byte) 0x40, (byte) 0x32, (byte) 0x03, (byte) 0xab, (byte) 0x00, (byte) 0x48, (byte) 0x65, (byte) 0x6c, (byte) 0x6c, (byte) 0x6f};
-        TransmitRequest64 frame = (TransmitRequest64)new TransmitRequest64()
-            .setDestinationAddress64(0x13a200403203abL)
+        byte[] expected = {(byte) 0x01, (byte) 0x03, (byte) 0xFF, (byte) 0xFE, (byte) 0x00, (byte) 0x48, (byte) 0x65, (byte) 0x6c, (byte) 0x6c, (byte) 0x6f};
+        TransmitRequest16 frame = (TransmitRequest16) new TransmitRequest16()
+            .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
             .setData("Hello".getBytes())
-            .setFrameId((byte)0x03);
+            .setFrameId((byte) 0x03);
 
         assertThat(frame.toBytes(), is(equalTo(expected)));
     }
