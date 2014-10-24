@@ -38,7 +38,7 @@ public class Main {
     public static void main(final String[] args) {
         System.out.println("Hello world, I talk XBee!");
 
-        serialPort = new SerialPort("/dev/tty.usbserial-000012FD");
+        serialPort = new SerialPort("/dev/tty.usbserial-A800cGqh");
         try {
             serialPort.openPort();//Open port
             serialPort.setParams(
