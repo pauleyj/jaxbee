@@ -90,6 +90,13 @@ public class AtCommandTest {
     }
 
     @Test
+    public void invalidNullCommand() throws XBeeException {
+        exception.expect(XBeeException.class);
+        new AtCommand()
+                .setCommand(null);
+    }
+
+    @Test
     public void exceptionWithNoCommand() throws XBeeException {
         exception.expect(XBeeException.class);
         AtCommand cmd = new AtCommand();
