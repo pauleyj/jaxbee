@@ -14,19 +14,14 @@
  * limitations under the License.
  */
 
-apply plugin: 'java'
+package com.acme.jaxbee.api;
 
-sourceCompatibility = 1.7
-version = '1.0'
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.core.RxFrameFactory;
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
-    testCompile group: 'com.google.code.gson', name: 'gson', version:'2.3'
-
+public class ReceivePacket16Factory implements RxFrameFactory {
+    @Override
+    public RxFrame newFrame() {
+        return new ReceivePacket16();
+    }
 }

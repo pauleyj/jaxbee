@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
-apply plugin: 'java'
+package com.acme.jaxbee.api.core;
 
-sourceCompatibility = 1.7
-version = '1.0'
+/**
+ * The interface X bee communications.
+ */
+public interface XBeeCommunications {
+    /**
+     * On send.
+     *
+     * @param b the b
+     */
+    void onSend(final byte b);
 
-repositories {
-    mavenCentral()
-}
+    /**
+     * On send.
+     *
+     * @param buffer the buffer
+     */
+    void onSend(final byte[] buffer);
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
-    testCompile group: 'com.google.code.gson', name: 'gson', version:'2.3'
-
+    /**
+     * On flush send buffer.
+     */
+    void onFlushSendBuffer();
 }

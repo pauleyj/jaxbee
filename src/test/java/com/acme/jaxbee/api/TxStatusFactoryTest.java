@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-apply plugin: 'java'
+package com.acme.jaxbee.api;
 
-sourceCompatibility = 1.7
-version = '1.0'
+import com.acme.jaxbee.api.core.RxFrame;
+import org.junit.Test;
 
-repositories {
-    mavenCentral()
-}
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
-    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
-    testCompile group: 'com.google.code.gson', name: 'gson', version:'2.3'
+public class TxStatusFactoryTest {
 
+    @Test
+    public void testNewFrame() throws Exception {
+        RxFrame frame = new TxStatusFactory().newFrame();
+        assertThat(frame, is(instanceOf(TxStatus.class)));
+    }
 }

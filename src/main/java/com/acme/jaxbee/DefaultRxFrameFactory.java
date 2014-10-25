@@ -16,18 +16,11 @@
 
 package com.acme.jaxbee;
 
-import com.acme.jaxbee.api.RxFrame;
-import com.acme.jaxbee.api.RxFrameFactory;
-import com.acme.jaxbee.api.at.AtCommandResponse;
-import com.acme.jaxbee.api.at.AtCommandResponseFactory;
-import com.acme.jaxbee.api.at.RemoteAtCommandResponse;
-import com.acme.jaxbee.api.at.RemoteAtCommandResponseFactory;
-import com.acme.jaxbee.api.nii.NodeIdentificationIndicator;
-import com.acme.jaxbee.api.nii.NodeIdentificationIndicatorFactory;
-import com.acme.jaxbee.api.status.ModemStatus;
-import com.acme.jaxbee.api.status.ModemStatusFactory;
-import com.acme.jaxbee.api.status.TxStatus;
-import com.acme.jaxbee.api.status.TxStatusFactory;
+import com.acme.jaxbee.api.*;
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.core.RxFrameFactory;
+import com.acme.jaxbee.api.core.XBeeException;
+import com.acme.jaxbee.XBeeRxFrameFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,8 +28,8 @@ import java.util.Map;
 /**
  * The type Default rx frame factory.
  */
-class DefaultRxFrameFactory implements XBeeRxFrameFactory {
-    private final Map<Byte, com.acme.jaxbee.api.RxFrameFactory> factories;
+public class DefaultRxFrameFactory implements XBeeRxFrameFactory {
+    private final Map<Byte, RxFrameFactory> factories;
 
     /**
      * Instantiates a new Default rx frame factory.
@@ -49,11 +42,17 @@ class DefaultRxFrameFactory implements XBeeRxFrameFactory {
         addRxFrameFactoryForApiId(RemoteAtCommandResponse.FRAME_TYPE, new RemoteAtCommandResponseFactory());
         addRxFrameFactoryForApiId(ModemStatus.FRAME_TYPE, new ModemStatusFactory());
         addRxFrameFactoryForApiId(TxStatus.FRAME_TYPE, new TxStatusFactory());
+        addRxFrameFactoryForApiId(ReceivePacket64.FRAME_TYPE, new ReceivePacket64Factory());
+        addRxFrameFactoryForApiId(ReceivePacket64IO.FRAME_TYPE, new ReceivePacket64IOFactory());
+        addRxFrameFactoryForApiId(ReceivePacket16.FRAME_TYPE, new ReceivePacket16Factory());
+        addRxFrameFactoryForApiId(ReceivePacket16IO.FRAME_TYPE, new ReceivePacket16IOFactory());
         addRxFrameFactoryForApiId(NodeIdentificationIndicator.FRAME_TYPE, new NodeIdentificationIndicatorFactory());
+        addRxFrameFactoryForApiId(ZigBeeTransmitStatus.FRAME_TYPE, new ZigBeeTransmitStatusFactory());
+        addRxFrameFactoryForApiId(ZigBeeReceivePacket.FRAME_TYPE, new ZigBeeReceivePacketFactory());
     }
 
     public RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException {
-        if(factories.containsKey(apiId)) {
+        if ( factories.containsKey(apiId) ) {
             return factories.get(apiId).newFrame();
         } else {
             throw new XBeeException("Unknown API frame ID");

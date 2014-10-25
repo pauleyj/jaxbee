@@ -16,13 +16,9 @@
 
 package com.acme.sample.jaxbee;
 
-import com.acme.jaxbee.*;
-import com.acme.jaxbee.api.RxFrame;
-import com.acme.jaxbee.api.at.AtCommandBuilder;
-import com.acme.jaxbee.api.at.Commands;
-import com.acme.jaxbee.api.at.RemoteAtCommandBuilder;
-import com.acme.jaxbee.api.tx.TransmitRequest64Builder;
-import com.acme.jaxbee.api.tx.ZigBeeTransmitRequestBuilder;
+import com.acme.jaxbee.XBee;
+import com.acme.jaxbee.api.*;
+import com.acme.jaxbee.api.core.*;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -33,21 +29,22 @@ import java.util.concurrent.Executors;
 
 public class Main {
 
-    static SerialPort serialPort;
+    static SerialPort      serialPort;
     static XBee xbee;
     static ExecutorService executor;
 
     public static void main(final String[] args) {
         System.out.println("Hello world, I talk XBee!");
 
+        // put your serial port here
         serialPort = new SerialPort("/dev/tty.usbserial-A800cGqh");
         try {
             serialPort.openPort();//Open port
             serialPort.setParams(
-                SerialPort.BAUDRATE_9600,
-                SerialPort.DATABITS_8,
-                SerialPort.STOPBITS_1,
-                SerialPort.PARITY_NONE);//Set params
+                    SerialPort.BAUDRATE_9600,
+                    SerialPort.DATABITS_8,
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);//Set params
             int mask = SerialPort.MASK_RXCHAR + SerialPort.MASK_CTS + SerialPort.MASK_DSR;//Prepare mask
             serialPort.setEventsMask(mask);//Set mask
             serialPort.addEventListener(new SerialPortReader());//Add SerialPortEventListener
@@ -57,10 +54,10 @@ public class Main {
             XBeeCommunications communications = new XBeeCommunications() {
                 @Override
                 public void onSend(byte b) {
-//                    System.out.println(String.format("0x%02x", b));
+                    System.out.println(String.format("TX --> 0x%02x", b));
                     try {
                         serialPort.writeByte(b);
-                    } catch (SerialPortException e) {
+                    } catch ( SerialPortException e ) {
                         e.printStackTrace();
                     }
                 }
@@ -87,7 +84,7 @@ public class Main {
             XBeeListener listener = new XBeeListener() {
                 @Override
                 public void onReceiveFrame(RxFrame frame) {
-                    System.out.println("onReceiveFrame - " + frame.toString());
+                    System.out.println("onReceiveFrame(" + frame.getClass().getSimpleName() + ") - " + frame.toString());
                 }
             };
             xbee = new XBee(communications, listener);
@@ -97,28 +94,31 @@ public class Main {
                     new AtCommandBuilder()
                         .setFrameId((byte) 0x01)
                         .setCommand(Commands.NI);
-//                xbee.tx(atCommandBuilder.build());
+                xbee.tx(atCommandBuilder.build());
 
                 RemoteAtCommandBuilder remoteAtCommandBuilder =
                     new RemoteAtCommandBuilder()
                         .setFrameId((byte) 0x02)
-                        .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
-                        .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
+                        .setDestinationAddress64(XBeeConstants.BROADCAST_ADDRESS_64)
+                        .setDestinationAddress16(XBeeConstants.BROADCAST_ADDRESS_16)
                         .setCommand(Commands.NI);
-//                xbee.tx(remoteAtCommandBuilder.build());
+                xbee.tx(remoteAtCommandBuilder.build());
 
-//                TransmitRequest64Builder transmitRequest64Builder =
-//                    new TransmitRequest64Builder()
-//                        .setFrameId((byte) 0x03)
-//                        .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
-//                        .setData("Hello".getBytes());
-//                xbee.tx(transmitRequest64Builder.build());
+                TransmitRequest64Builder transmitRequest64Builder =
+                    new TransmitRequest64Builder()
+                        .setFrameId((byte) 0x03)
+                        .setDestinationAddress64(0x13a200403203abL)
+                        .setData("Hello".getBytes());
+                xbee.tx(transmitRequest64Builder.build());
 
                 ZigBeeTransmitRequestBuilder zigBeeTransmitRequestBuilder =
                     new ZigBeeTransmitRequestBuilder()
-                    .setFrameId((byte)0x04)
-                    .setData("Hello world!".getBytes());
+                        .setFrameId((byte) 0x04)
+                        .setDestinationAddress64(XBeeConstants.BROADCAST_ADDRESS_64)
+                        .setDestinationAddress16(XBeeConstants.BROADCAST_ADDRESS_16)
+                        .setData("Hello world!".getBytes());
                 xbee.tx(zigBeeTransmitRequestBuilder.build());
+
             } catch (XBeeException e) {
                 e.printStackTrace();
             }
@@ -142,7 +142,7 @@ public class Main {
                     final int inputBufferBytesCount = event.getEventValue();
                     final byte[] buffer = serialPort.readBytes(inputBufferBytesCount);
                     final StringBuilder builder = new StringBuilder("RX <-- ");
-                    for(byte b : buffer){
+                    for (byte b : buffer) {
                         builder.append(String.format("0x%02x", b)).append(' ');
                     }
                     System.out.println(builder.toString());
@@ -152,9 +152,9 @@ public class Main {
                 }
             } else if (event.isCTS()) {//If CTS line has changed state
                 if (event.getEventValue() == 1) {//If line is ON
-                    System.out.println("CTS - ON");
+//                    System.out.println("CTS - ON");
                 } else {
-                    System.out.println("CTS - OFF");
+//                    System.out.println("CTS - OFF");
                 }
             } else if (event.isDSR()) {//If DSR line has changed state
                 if (event.getEventValue() == 1) {//If line is ON
