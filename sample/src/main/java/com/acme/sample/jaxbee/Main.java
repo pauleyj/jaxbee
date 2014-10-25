@@ -36,6 +36,7 @@ public class Main {
     public static void main(final String[] args) {
         System.out.println("Hello world, I talk XBee!");
 
+        // put your serial port here
         serialPort = new SerialPort("/dev/tty.usbserial-A800cGqh");
         try {
             serialPort.openPort();//Open port
@@ -53,7 +54,7 @@ public class Main {
             XBeeCommunications communications = new XBeeCommunications() {
                 @Override
                 public void onSend(byte b) {
-//                    System.out.println(String.format("0x%02x", b));
+                    System.out.println(String.format("TX --> 0x%02x", b));
                     try {
                         serialPort.writeByte(b);
                     } catch ( SerialPortException e ) {
@@ -113,17 +114,13 @@ public class Main {
                 ZigBeeTransmitRequestBuilder zigBeeTransmitRequestBuilder =
                     new ZigBeeTransmitRequestBuilder()
                         .setFrameId((byte) 0x04)
-                        .setDestinationAddress64(0x13a200403203abL)
-                        .setDestinationAddress16((short) 0xd9f0)
+                        .setDestinationAddress64(XBeeConstants.BROADCAST_ADDRESS_64)
+                        .setDestinationAddress16(XBeeConstants.BROADCAST_ADDRESS_16)
                         .setData("Hello world!".getBytes());
                 xbee.tx(zigBeeTransmitRequestBuilder.build());
 
-//                TimeUnit.SECONDS.sleep(1);
-//                serialPort.closePort();
             } catch (XBeeException e) {
                 e.printStackTrace();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
             }
         } catch (SerialPortException e) {
             e.printStackTrace();
