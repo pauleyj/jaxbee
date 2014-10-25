@@ -79,6 +79,6 @@ xbee.rx(b);
 
 ### License
 
-JaXBee is licensed under the Apache License, Version 2.0.  See the [LICENSE](https://github.com/pauleyj/jaxbee/blob/branch/LICENSE) for more information.
+JaXBee is licensed under the Apache License, Version 2.0.  See the [LICENSE](https://github.com/pauleyj/jaxbee/blob/master/LICENSE) for more information.
 
 
