@@ -30,7 +30,7 @@ public class TransmitRequest16Builder implements TxFrameBuilder {
     private byte[] data;
 
     public TransmitRequest16Builder() {
-        destinationAddress16 = XBee.BROADCAST_ADDRESS_16;
+        destinationAddress16 = XBeeConstants.BROADCAST_ADDRESS_16;
         options = 0;
         data = null;
     }

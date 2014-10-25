@@ -29,7 +29,7 @@ public class TransmitRequest64Builder implements TxFrameBuilder {
 
     public TransmitRequest64Builder() {
         frameId = 0;
-        destinationAddress64 = XBee.BROADCAST_ADDRESS_64;
+        destinationAddress64 = XBeeConstants.BROADCAST_ADDRESS_64;
         options = 0;
         data = null;
     }

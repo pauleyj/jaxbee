@@ -19,7 +19,6 @@ package com.acme.jaxbee;
 import com.acme.jaxbee.api.AtCommandBuilder;
 import com.acme.jaxbee.api.AtCommandResponse;
 import com.acme.jaxbee.api.Commands;
-import com.acme.jaxbee.api.XBee;
 import com.acme.jaxbee.api.core.*;
 import org.junit.Before;
 import org.junit.Rule;
@@ -40,9 +39,9 @@ public class TestXBee {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    public XBee               xbee;
+    public XBee xbee;
     public XBeeCommunications communications;
-    public XBeeListener       listener;
+    public XBeeListener listener;
 
     @Before
     public void setupTest() {
@@ -121,10 +120,11 @@ public class TestXBee {
 
     @Test
     public void addRxFrameFactoryForApiIdTest() {
+        final byte fooApiId = (byte) 0xFF;
         final RxFrame fooFrame = new RxFrame() {
             @Override
             public byte getFrameType() {
-                return (byte)0xF00;
+                return fooApiId;
             }
 
             @Override
@@ -138,7 +138,7 @@ public class TestXBee {
                 return fooFrame;
             }
         };
-        xbee.addRxFrameFactoryForApiId((byte)0xFF, fooFrameFactory);
+        xbee.addRxFrameFactoryForApiId(fooApiId, fooFrameFactory);
         doAnswer(new Answer<Void>() {
             @Override
             public Void answer(InvocationOnMock invocation) throws Throwable {
@@ -148,11 +148,10 @@ public class TestXBee {
                 assertThat(args[0], is(instanceOf(RxFrame.class)));
 
                 RxFrame response = (RxFrame) args[0];
-                assertThat(response.getFrameType(), is(equalTo((byte)0xF00)));
+                assertThat(response.getFrameType(), is(equalTo(fooApiId)));
                 return null;
             }
         }).when(listener).onReceiveFrame(any(RxFrame.class));
-        xbee.rx((byte)0xFF);
-
+        xbee.rx(fooApiId);
     }
 }

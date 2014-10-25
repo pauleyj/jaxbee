@@ -16,11 +16,9 @@
 
 package com.acme.sample.jaxbee;
 
+import com.acme.jaxbee.XBee;
 import com.acme.jaxbee.api.*;
-import com.acme.jaxbee.api.core.RxFrame;
-import com.acme.jaxbee.api.core.XBeeCommunications;
-import com.acme.jaxbee.api.core.XBeeException;
-import com.acme.jaxbee.api.core.XBeeListener;
+import com.acme.jaxbee.api.core.*;
 import jssc.SerialPort;
 import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
@@ -32,7 +30,7 @@ import java.util.concurrent.Executors;
 public class Main {
 
     static SerialPort      serialPort;
-    static XBee            xbee;
+    static XBee xbee;
     static ExecutorService executor;
 
     public static void main(final String[] args) {
@@ -100,8 +98,8 @@ public class Main {
                 RemoteAtCommandBuilder remoteAtCommandBuilder =
                     new RemoteAtCommandBuilder()
                         .setFrameId((byte) 0x02)
-                        .setDestinationAddress64(XBee.BROADCAST_ADDRESS_64)
-                        .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
+                        .setDestinationAddress64(XBeeConstants.BROADCAST_ADDRESS_64)
+                        .setDestinationAddress16(XBeeConstants.BROADCAST_ADDRESS_16)
                         .setCommand(Commands.NI);
                 xbee.tx(remoteAtCommandBuilder.build());
 

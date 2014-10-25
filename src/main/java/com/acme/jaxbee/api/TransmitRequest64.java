@@ -33,7 +33,7 @@ public class TransmitRequest64 extends TxFrame {
     private byte[] data;
 
     public TransmitRequest64() {
-        destinationAddress64 = XBee.BROADCAST_ADDRESS_64;
+        destinationAddress64 = XBeeConstants.BROADCAST_ADDRESS_64;
         options = 0;
         data = null;
     }

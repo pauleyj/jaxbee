@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee.api.core;
+package com.acme.jaxbee;
+
+import com.acme.jaxbee.api.core.RxFrame;
+import com.acme.jaxbee.api.core.RxFrameFactory;
+import com.acme.jaxbee.api.core.XBeeException;
 
 /**
  * The interface X bee rx frame factory.
@@ -25,7 +29,7 @@ public interface XBeeRxFrameFactory {
      *
      * @param apiId the api id
      * @return the rx frame
-     * @throws XBeeException the x bee exception
+     * @throws com.acme.jaxbee.api.core.XBeeException the x bee exception
      */
     RxFrame newRxFrameForApiId(final byte apiId) throws XBeeException;
 

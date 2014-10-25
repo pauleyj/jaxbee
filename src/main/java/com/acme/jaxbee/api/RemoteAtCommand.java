@@ -43,8 +43,8 @@ public class RemoteAtCommand extends TxFrame {
      * Instantiates a new Remote at command.
      */
     public RemoteAtCommand() {
-        destinationAddress64 = XBee.BROADCAST_ADDRESS_64;
-        destinationAddress16 = XBee.BROADCAST_ADDRESS_16;
+        destinationAddress64 = XBeeConstants.BROADCAST_ADDRESS_64;
+        destinationAddress16 = XBeeConstants.BROADCAST_ADDRESS_16;
         options = 0x00;
         command = null;
         parameter = null;

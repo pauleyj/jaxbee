@@ -38,7 +38,7 @@ public class TransmitRequest16BuilderTest {
         public void setUp() throws Exception {
 
             TransmitRequest16Builder builder = new TransmitRequest16Builder();
-            builder.setDestinationAddress16(XBee.BROADCAST_ADDRESS_16);
+            builder.setDestinationAddress16(XBeeConstants.BROADCAST_ADDRESS_16);
             builder.setOptions((byte) 0xAA);
             builder.setFrameId((byte) 0x04);
             builder.setData("Hello world!".getBytes());
@@ -52,7 +52,7 @@ public class TransmitRequest16BuilderTest {
 
         @Test
         public void testSetDestinationAddress16() throws Exception {
-            assertThat(frame.getDestinationAddress16(), is(equalTo(XBee.BROADCAST_ADDRESS_16)));
+            assertThat(frame.getDestinationAddress16(), is(equalTo(XBeeConstants.BROADCAST_ADDRESS_16)));
         }
 
         @Test

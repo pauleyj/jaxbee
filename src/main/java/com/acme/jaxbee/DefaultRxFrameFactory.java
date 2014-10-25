@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee.api;
+package com.acme.jaxbee;
 
+import com.acme.jaxbee.api.*;
 import com.acme.jaxbee.api.core.RxFrame;
 import com.acme.jaxbee.api.core.RxFrameFactory;
 import com.acme.jaxbee.api.core.XBeeException;
-import com.acme.jaxbee.api.core.XBeeRxFrameFactory;
+import com.acme.jaxbee.XBeeRxFrameFactory;
 
 import java.util.HashMap;
 import java.util.Map;

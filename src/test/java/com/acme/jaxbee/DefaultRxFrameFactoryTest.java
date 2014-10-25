@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee.api;
+package com.acme.jaxbee;
 
+import com.acme.jaxbee.DefaultRxFrameFactory;
+import com.acme.jaxbee.api.RemoteAtCommandResponse;
 import com.acme.jaxbee.api.core.RxFrame;
 import com.acme.jaxbee.api.core.RxFrameFactory;
 import com.acme.jaxbee.api.core.XBeeException;

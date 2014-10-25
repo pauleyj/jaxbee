@@ -16,7 +16,6 @@
 
 package com.acme.jaxbee.api;
 
-import com.acme.jaxbee.api.core.TxFrame;
 import com.acme.jaxbee.api.core.XBeeException;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,7 +33,7 @@ public class TransmitRequest16Test {
 
     @Test
     public void testDestinationAddress16() throws Exception {
-        final short destinationAddress16 = XBee.BROADCAST_ADDRESS_16;
+        final short destinationAddress16 = XBeeConstants.BROADCAST_ADDRESS_16;
         TransmitRequest16 frame = new TransmitRequest16()
             .setDestinationAddress16(destinationAddress16);
         assertThat(frame.getDestinationAddress16(), is(equalTo(destinationAddress16)));
@@ -89,7 +88,7 @@ public class TransmitRequest16Test {
     public void testToBytes() throws Exception {
         byte[] expected = {(byte) 0x01, (byte) 0x03, (byte) 0xFF, (byte) 0xFE, (byte) 0x00, (byte) 0x48, (byte) 0x65, (byte) 0x6c, (byte) 0x6c, (byte) 0x6f};
         TransmitRequest16 frame = (TransmitRequest16) new TransmitRequest16()
-            .setDestinationAddress16(XBee.BROADCAST_ADDRESS_16)
+            .setDestinationAddress16(XBeeConstants.BROADCAST_ADDRESS_16)
             .setData("Hello".getBytes())
             .setFrameId((byte) 0x03);
 

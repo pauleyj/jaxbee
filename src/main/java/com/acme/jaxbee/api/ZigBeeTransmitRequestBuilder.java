@@ -31,8 +31,8 @@ public class ZigBeeTransmitRequestBuilder implements TxFrameBuilder {
 
     public ZigBeeTransmitRequestBuilder() {
         frameId = 0;
-        destinationAddress64 = XBee.BROADCAST_ADDRESS_64;
-        destinationAddress16 = XBee.BROADCAST_ADDRESS_16;
+        destinationAddress64 = XBeeConstants.BROADCAST_ADDRESS_64;
+        destinationAddress16 = XBeeConstants.BROADCAST_ADDRESS_16;
         broadcastRadius = 0;
         options = 0;
         data = null;

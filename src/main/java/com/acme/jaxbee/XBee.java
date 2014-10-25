@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.acme.jaxbee.api;
+package com.acme.jaxbee;
 
 import com.acme.jaxbee.api.core.*;
 
@@ -28,15 +28,6 @@ public class XBee {
     private static final byte API_FRAME_WRAPPER_LENGTH = 0x04; // start delimiter 1 byte, length 2 bytes, checksum 1 byte
     private static final byte XBEE_NUMBER_OF_SIZE_BYTES = 0x02;
     private static final byte XBEE_FRAME_VALID_CHECKSUM = (byte) 0xFF;
-
-    /**
-     * The constant BROADCAST_ADDRESS_64.
-     */
-    public static final long BROADCAST_ADDRESS_64 = 0x000000000000FFFF;
-    /**
-     * The constant BROADCAST_ADDRESS_16.
-     */
-    public static final short BROADCAST_ADDRESS_16 = (short) 0xFFFE;
 
     // xbee state machine states
     private enum XBeeState {

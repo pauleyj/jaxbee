@@ -33,7 +33,7 @@ public class TransmitRequest16 extends TxFrame {
     private byte[] data;
 
     public TransmitRequest16() {
-        destinationAddress16 = XBee.BROADCAST_ADDRESS_16;
+        destinationAddress16 = XBeeConstants.BROADCAST_ADDRESS_16;
         options = 0;
         data = null;
     }
