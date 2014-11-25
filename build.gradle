@@ -48,6 +48,51 @@ signing {
     sign configurations.archives
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'JaXBee'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'A Java XBee library.'
+                url 'https://github.com/pauleyj/jaxbee'
+
+                scm {
+                    connection 'scm:git:https://github.com/pauleyj/jaxbee.git'
+                    developerConnection 'scm:git:https://github.com/pauleyj/jaxbee.git'
+                    url 'https://github.com/pauleyj/jaxbee'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'pauleyj'
+                        name 'John Pauley'
+                        email 'pauley@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
