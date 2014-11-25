@@ -79,7 +79,7 @@ xbee.rx(b);
 
 ### Get It
 
-JaxBee is available via Maven Central, add it as a dependency to your Maven POM
+JaXBee is available via Maven Central, add it as a dependency to your Maven POM
 
 ```xml
 <dependency>
