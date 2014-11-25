@@ -77,6 +77,18 @@ byte b = uart.rx();
 xbee.rx(b);
 ```
 
+### Get It
+
+JaXBee is available via Maven Central, add it as a dependency to your Maven POM
+
+```xml
+<dependency>
+  <groupId>com.github.pauleyj</groupId>
+  <artifactId>jaxbee</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ### License
 
 JaXBee is licensed under the Apache License, Version 2.0.  See the [LICENSE](https://github.com/pauleyj/jaxbee/blob/master/LICENSE) for more information.
