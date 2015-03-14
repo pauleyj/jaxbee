@@ -21,7 +21,7 @@ import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class ZigBeeReceivePacket extends RxFrame {
+public class ZigBeeReceivePacket extends RxFrame<ZigBeeReceivePacket> {
     public static final byte FRAME_TYPE = (byte) 0x90;
 
     private static final byte ADDRESS64_LENGTH = 0x08;

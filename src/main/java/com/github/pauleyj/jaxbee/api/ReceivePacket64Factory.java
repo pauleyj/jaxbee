@@ -19,9 +19,9 @@ package com.github.pauleyj.jaxbee.api;
 import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import com.github.pauleyj.jaxbee.api.core.RxFrameFactory;
 
-public class ReceivePacket64Factory implements RxFrameFactory{
+public class ReceivePacket64Factory implements RxFrameFactory<ReceivePacket64>{
     @Override
-    public RxFrame newFrame() {
+    public ReceivePacket64 newFrame() {
         return new ReceivePacket64();
     }
 }

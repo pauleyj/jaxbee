@@ -22,9 +22,9 @@ import com.github.pauleyj.jaxbee.api.core.RxFrameFactory;
 /**
  * The type Remote at command response factory.
  */
-public class RemoteAtCommandResponseFactory implements RxFrameFactory {
+public class RemoteAtCommandResponseFactory implements RxFrameFactory<RemoteAtCommandResponse> {
     @Override
-    public RxFrame newFrame() {
+    public RemoteAtCommandResponse newFrame() {
         return new RemoteAtCommandResponse();
     }
 }

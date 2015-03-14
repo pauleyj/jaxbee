@@ -19,9 +19,9 @@ package com.github.pauleyj.jaxbee.api;
 import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import com.github.pauleyj.jaxbee.api.core.RxFrameFactory;
 
-public class ZigBeeReceivePacketFactory implements RxFrameFactory {
+public class ZigBeeReceivePacketFactory implements RxFrameFactory<ZigBeeReceivePacket> {
     @Override
-    public RxFrame newFrame() {
+    public ZigBeeReceivePacket newFrame() {
         return new ZigBeeReceivePacket();
     }
 }

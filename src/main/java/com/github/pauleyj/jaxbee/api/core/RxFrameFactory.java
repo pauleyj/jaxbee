@@ -19,11 +19,11 @@ package com.github.pauleyj.jaxbee.api.core;
 /**
  * The interface Rx frame factory.
  */
-public interface RxFrameFactory {
+public interface RxFrameFactory<T extends RxFrame> {
     /**
      * New frame.
      *
      * @return the rx frame
      */
-    RxFrame newFrame();
+    T newFrame();
 }

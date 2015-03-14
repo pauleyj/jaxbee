@@ -19,9 +19,9 @@ package com.github.pauleyj.jaxbee.api;
 import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import com.github.pauleyj.jaxbee.api.core.RxFrameFactory;
 
-public class TxStatusFactory implements RxFrameFactory{
+public class TxStatusFactory implements RxFrameFactory<TxStatus>{
     @Override
-    public RxFrame newFrame() {
+    public TxStatus newFrame() {
         return new TxStatus();
     }
 }

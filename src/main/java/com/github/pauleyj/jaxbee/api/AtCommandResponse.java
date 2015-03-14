@@ -24,7 +24,7 @@ import java.util.Arrays;
 /**
  * The type At command response.
  */
-public class AtCommandResponse extends RxFrame {
+public class AtCommandResponse extends RxFrame<AtCommandResponse> {
     private static final byte AT_COMMAND_LENGTH = 0x02;
     private static final byte BUFFER_ALLOCATION_CHUNK_SIZE = 0x04;
 

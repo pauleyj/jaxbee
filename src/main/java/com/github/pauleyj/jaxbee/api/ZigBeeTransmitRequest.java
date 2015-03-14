@@ -22,7 +22,7 @@ import com.github.pauleyj.jaxbee.api.core.XBeeException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class ZigBeeTransmitRequest extends TxFrame {
+public class ZigBeeTransmitRequest extends TxFrame<ZigBeeTransmitRequest> {
     private static final byte ADDRESS64_LENGTH = 0x08;
     private static final byte ADDRESS16_LENGTH = 0x02;
     private static final byte BROADCAST_RADIUS_SIZE = 0x01;

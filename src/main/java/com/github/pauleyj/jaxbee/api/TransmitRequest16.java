@@ -22,7 +22,7 @@ import com.github.pauleyj.jaxbee.api.core.XBeeException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class TransmitRequest16 extends TxFrame {
+public class TransmitRequest16 extends TxFrame<TransmitRequest16> {
     public static final byte FRAME_TYPE = 0x01;
     public static final int MAX_DATA_BYTES = 100;
     private static final byte ADDRESS16_LENGTH = 0x02;

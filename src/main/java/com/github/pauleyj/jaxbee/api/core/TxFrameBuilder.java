@@ -19,12 +19,12 @@ package com.github.pauleyj.jaxbee.api.core;
 /**
  * The interface Tx frame builder.
  */
-public interface TxFrameBuilder {
+public interface TxFrameBuilder<T extends TxFrame> {
     /**
      * Build tx frame.
      *
      * @return the tx frame
      * @throws XBeeException the x bee exception
      */
-    TxFrame build() throws XBeeException;
+    T build() throws XBeeException;
 }

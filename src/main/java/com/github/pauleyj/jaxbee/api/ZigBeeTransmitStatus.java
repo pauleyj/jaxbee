@@ -20,7 +20,7 @@ import com.github.pauleyj.jaxbee.api.core.RxFrame;
 
 import java.nio.ByteBuffer;
 
-public class ZigBeeTransmitStatus extends RxFrame {
+public class ZigBeeTransmitStatus extends RxFrame<ZigBeeTransmitStatus> {
 
     /**
      * Transmit Status Frame Type

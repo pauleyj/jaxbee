@@ -18,7 +18,7 @@ package com.github.pauleyj.jaxbee.api;
 
 import com.github.pauleyj.jaxbee.api.core.RxFrame;
 
-public class ModemStatus extends RxFrame {
+public class ModemStatus extends RxFrame<ModemStatus> {
     public static final byte FRAME_TYPE = (byte)0x8A;
 
     public enum Status {

@@ -21,7 +21,7 @@ import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class NodeIdentificationIndicator extends RxFrame {
+public class NodeIdentificationIndicator extends RxFrame<NodeIdentificationIndicator> {
     private static final byte ADDRESS64_LENGTH = 0x08;
     private static final byte ADDRESS16_LENGTH = 0x02;
     private static final byte PROFILE_ID_LENGTH = 0x02;

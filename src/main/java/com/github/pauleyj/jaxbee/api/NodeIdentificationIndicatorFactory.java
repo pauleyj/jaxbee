@@ -19,9 +19,9 @@ package com.github.pauleyj.jaxbee.api;
 import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import com.github.pauleyj.jaxbee.api.core.RxFrameFactory;
 
-public class NodeIdentificationIndicatorFactory implements RxFrameFactory{
+public class NodeIdentificationIndicatorFactory implements RxFrameFactory<NodeIdentificationIndicator>{
     @Override
-    public RxFrame newFrame() {
+    public NodeIdentificationIndicator newFrame() {
         return new NodeIdentificationIndicator();
     }
 }

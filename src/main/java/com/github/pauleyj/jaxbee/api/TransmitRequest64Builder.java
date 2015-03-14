@@ -20,7 +20,7 @@ import com.github.pauleyj.jaxbee.api.core.TxFrame;
 import com.github.pauleyj.jaxbee.api.core.TxFrameBuilder;
 import com.github.pauleyj.jaxbee.api.core.XBeeException;
 
-public class TransmitRequest64Builder implements TxFrameBuilder {
+public class TransmitRequest64Builder implements TxFrameBuilder<TransmitRequest64> {
 
     private byte frameId;
     private long destinationAddress64;
@@ -58,7 +58,7 @@ public class TransmitRequest64Builder implements TxFrameBuilder {
     }
 
     @Override
-    public TxFrame build() throws XBeeException {
+    public TransmitRequest64 build() throws XBeeException {
         if (data == null || data.length == 0 || data.length > TransmitRequest64.MAX_DATA_BYTES) {
             throw new XBeeException("Invalid data payload");
         }

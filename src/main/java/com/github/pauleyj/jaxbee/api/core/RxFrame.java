@@ -19,7 +19,7 @@ package com.github.pauleyj.jaxbee.api.core;
 /**
  * The type Rx frame.
  */
-public abstract class RxFrame {
+public abstract class RxFrame<T extends RxFrame> {
     /**
      * The constant API_FRAME_ID_LENGTH.
      */
@@ -42,9 +42,9 @@ public abstract class RxFrame {
      * @param frameId the frame id
      * @return the frame id
      */
-    public RxFrame setFrameId(byte frameId) {
+    public T setFrameId(byte frameId) {
         this.frameId = frameId;
-        return this;
+        return (T)this;
     }
 
     /**

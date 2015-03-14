@@ -19,7 +19,7 @@ package com.github.pauleyj.jaxbee.api.core;
 /**
  * The type Tx frame.
  */
-public abstract class TxFrame {
+public abstract class TxFrame<T extends TxFrame> {
     /**
      * The constant API_FRAME_TYPE_LENGTH.
      */
@@ -46,9 +46,9 @@ public abstract class TxFrame {
      * @param frameId the frame id
      * @return the frame id
      */
-    public TxFrame setFrameId(byte frameId) {
+    public T setFrameId(byte frameId) {
         this.frameId = frameId;
-        return this;
+        return (T)this;
     }
 
     /**

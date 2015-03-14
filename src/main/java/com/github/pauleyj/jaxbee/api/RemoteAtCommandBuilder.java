@@ -20,7 +20,7 @@ import com.github.pauleyj.jaxbee.api.core.TxFrame;
 import com.github.pauleyj.jaxbee.api.core.TxFrameBuilder;
 import com.github.pauleyj.jaxbee.api.core.XBeeException;
 
-public class RemoteAtCommandBuilder implements TxFrameBuilder {
+public class RemoteAtCommandBuilder implements TxFrameBuilder<RemoteAtCommand> {
     private byte frameId;
     private long destinationAddress64;
     private short destinationAddress16;
@@ -106,7 +106,7 @@ public class RemoteAtCommandBuilder implements TxFrameBuilder {
     }
 
     @Override
-    public TxFrame build() throws XBeeException {
+    public RemoteAtCommand build() throws XBeeException {
         if (command != null) {
             return new RemoteAtCommand()
                 .setDestinationAddress64(destinationAddress64)

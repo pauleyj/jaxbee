@@ -20,7 +20,7 @@ import com.github.pauleyj.jaxbee.api.core.TxFrame;
 import com.github.pauleyj.jaxbee.api.core.TxFrameBuilder;
 import com.github.pauleyj.jaxbee.api.core.XBeeException;
 
-public class ZigBeeTransmitRequestBuilder implements TxFrameBuilder {
+public class ZigBeeTransmitRequestBuilder implements TxFrameBuilder<ZigBeeTransmitRequest> {
 
     private byte frameId;
     private long destinationAddress64;
@@ -70,10 +70,8 @@ public class ZigBeeTransmitRequestBuilder implements TxFrameBuilder {
         return this;
     }
 
-
-
     @Override
-    public TxFrame build() throws XBeeException {
+    public ZigBeeTransmitRequest build() throws XBeeException {
         return new ZigBeeTransmitRequest()
             .setDestinationAddress64(destinationAddress64)
             .setDestinationAddress16(destinationAddress16)

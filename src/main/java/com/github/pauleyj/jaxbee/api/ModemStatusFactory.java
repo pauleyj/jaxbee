@@ -19,9 +19,9 @@ package com.github.pauleyj.jaxbee.api;
 import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import com.github.pauleyj.jaxbee.api.core.RxFrameFactory;
 
-public class ModemStatusFactory implements RxFrameFactory {
+public class ModemStatusFactory implements RxFrameFactory<ModemStatus> {
     @Override
-    public RxFrame newFrame() {
+    public ModemStatus newFrame() {
         return new ModemStatus();
     }
 }

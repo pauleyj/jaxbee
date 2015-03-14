@@ -22,7 +22,7 @@ import com.github.pauleyj.jaxbee.api.core.XBeeException;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class RemoteAtCommand extends TxFrame {
+public class RemoteAtCommand extends TxFrame<RemoteAtCommand> {
     /**
      * The constant FRAME_TYPE.
      */

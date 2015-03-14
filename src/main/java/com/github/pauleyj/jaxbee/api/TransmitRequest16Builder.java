@@ -23,7 +23,7 @@ import com.github.pauleyj.jaxbee.api.core.XBeeException;
 /**
  * Created by pauleyj on 10/21/14.
  */
-public class TransmitRequest16Builder implements TxFrameBuilder {
+public class TransmitRequest16Builder implements TxFrameBuilder<TransmitRequest16> {
     private byte frameId;
     private short destinationAddress16;
     private byte options;
@@ -59,7 +59,7 @@ public class TransmitRequest16Builder implements TxFrameBuilder {
     }
 
     @Override
-    public TxFrame build() throws XBeeException {
+    public TransmitRequest16 build() throws XBeeException {
         if (data == null || data.length == 0 || data.length > TransmitRequest16.MAX_DATA_BYTES) {
             throw new XBeeException("Invalid data payload");
         }

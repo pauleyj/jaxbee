@@ -22,9 +22,9 @@ import com.github.pauleyj.jaxbee.api.core.RxFrameFactory;
 /**
  * The type At command response factory.
  */
-public class AtCommandResponseFactory implements RxFrameFactory {
+public class AtCommandResponseFactory implements RxFrameFactory<AtCommandResponse> {
     @Override
-    public RxFrame newFrame() {
+    public AtCommandResponse newFrame() {
         return new AtCommandResponse();
     }
 }

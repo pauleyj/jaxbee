@@ -23,7 +23,7 @@ import com.github.pauleyj.jaxbee.api.core.XBeeException;
 /**
  * The type At command builder.
  */
-public class AtCommandBuilder implements TxFrameBuilder {
+public class AtCommandBuilder implements TxFrameBuilder<AtCommand> {
     private byte frameId;
     private byte[] command;
     private byte[] parameter;
@@ -71,7 +71,7 @@ public class AtCommandBuilder implements TxFrameBuilder {
     }
 
     @Override
-    public TxFrame build() throws XBeeException {
+    public AtCommand build() throws XBeeException {
         if (command != null) {
             return new AtCommand()
                 .setCommand(command)

@@ -25,7 +25,7 @@ import java.util.Arrays;
 /**
  * The type At command.
  */
-public class AtCommand extends TxFrame {
+public class AtCommand extends TxFrame<AtCommand> {
     /**
      * API identifier for AT command
      */

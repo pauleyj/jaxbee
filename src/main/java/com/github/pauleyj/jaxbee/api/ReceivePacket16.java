@@ -21,7 +21,7 @@ import com.github.pauleyj.jaxbee.api.core.RxFrame;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-public class ReceivePacket16 extends RxFrame {
+public class ReceivePacket16 extends RxFrame<ReceivePacket16> {
     private static final byte ADDRESS16_LENGTH = 0x02;
     private static final byte BUFFER_ALLOCATION_CHUNK_SIZE = 0x04;
     public static final byte FRAME_TYPE = (byte) 0x81;
