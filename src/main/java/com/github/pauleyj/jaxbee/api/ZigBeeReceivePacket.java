@@ -132,9 +132,9 @@ public class ZigBeeReceivePacket extends RxFrame<ZigBeeReceivePacket> {
     public String toString() {
         return new StringBuffer()
             .append('{')
-            .append("\"sourceAddress64\" : ").append(String.format("0x%08x", sourceAddress64)).append(", ")
-            .append("\"sourceAddress16\" : ").append(String.format("0x%02x", sourceAddress16)).append(", ")
-            .append("\"receiveOptions\" : ").append(String.format("0x%02x", receiveOptions)).append(", ")
+            .append("\"source_address_64\" : ").append(String.format("0x%08x", sourceAddress64)).append(", ")
+            .append("\"source_address_16\" : ").append(String.format("0x%02x", sourceAddress16)).append(", ")
+            .append("\"receive_options\" : ").append(String.format("0x%02x", receiveOptions)).append(", ")
             .append("\"data\" : ").append('"').append(new String(getData())).append('"')
             .append('}')
             .toString();

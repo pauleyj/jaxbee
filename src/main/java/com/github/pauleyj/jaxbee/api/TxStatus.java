@@ -86,7 +86,7 @@ public class TxStatus extends RxFrame<TxStatus> {
     public String toString() {
         return new StringBuffer()
             .append('{')
-            .append("\"frameId\" : ").append(getFrameId()).append(", ")
+            .append("\"frame_id\" : ").append(getFrameId()).append(", ")
             .append("\"status\" : ").append('"').append(getStatus()).append('"').append(", ")
             .append('}')
             .toString();

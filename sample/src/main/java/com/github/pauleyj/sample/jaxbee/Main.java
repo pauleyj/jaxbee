@@ -24,6 +24,8 @@ import jssc.SerialPortEvent;
 import jssc.SerialPortEventListener;
 import jssc.SerialPortException;
 
+import java.util.concurrent.TimeUnit;
+
 public class Main {
 
     static SerialPort      serialPort;
@@ -90,6 +92,8 @@ public class Main {
                         .setCommand(Commands.NI);
                 xbee.tx(atCommandBuilder.build());
 
+                TimeUnit.SECONDS.sleep(2);
+
                 RemoteAtCommandBuilder remoteAtCommandBuilder =
                     new RemoteAtCommandBuilder()
                         .setFrameId((byte) 0x02)
@@ -98,12 +102,16 @@ public class Main {
                         .setCommand(Commands.NI);
                 xbee.tx(remoteAtCommandBuilder.build());
 
+                TimeUnit.SECONDS.sleep(2);
+
                 TransmitRequest64Builder transmitRequest64Builder =
                     new TransmitRequest64Builder()
                         .setFrameId((byte) 0x03)
                         .setDestinationAddress64(0x13a200403203abL)
                         .setData("Hello".getBytes());
                 xbee.tx(transmitRequest64Builder.build());
+
+                TimeUnit.SECONDS.sleep(2);
 
                 ZigBeeTransmitRequestBuilder zigBeeTransmitRequestBuilder =
                     new ZigBeeTransmitRequestBuilder()
@@ -113,7 +121,17 @@ public class Main {
                         .setData("Hello world!".getBytes());
                 xbee.tx(zigBeeTransmitRequestBuilder.build());
 
-            } catch (XBeeException e) {
+                TimeUnit.SECONDS.sleep(2);
+
+                ZigBeeTransmitRequestBuilder zigBeeTransmitRequestBuilder0 =
+                        new ZigBeeTransmitRequestBuilder()
+                                .setFrameId((byte) 0x05)
+                                .setDestinationAddress64(0x13a200403203abL)
+                                .setDestinationAddress16((short)0x64e4)
+                                .setData("Hello world!".getBytes());
+                xbee.tx(zigBeeTransmitRequestBuilder0.build());
+
+            } catch (XBeeException | InterruptedException e) {
                 e.printStackTrace();
             }
         } catch (SerialPortException e) {

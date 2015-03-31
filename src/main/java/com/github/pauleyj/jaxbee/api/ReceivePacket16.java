@@ -127,7 +127,7 @@ public class ReceivePacket16 extends RxFrame<ReceivePacket16> {
     public String toString() {
         return new StringBuffer()
             .append('{')
-            .append("\"sourceAddress16\" : ").append(String.format("0x%04x", sourceAddress16)).append(", ")
+            .append("\"source_address_16\" : ").append(String.format("0x%04x", sourceAddress16)).append(", ")
             .append("\"rssi\" : ").append(String.format("0x%02x", rssi)).append(", ")
             .append("\"options\" : ").append(options).append(", ")
             .append("\"data\" : ").append('"').append(new String(getData())).append('"')

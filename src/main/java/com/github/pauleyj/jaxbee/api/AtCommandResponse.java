@@ -179,7 +179,7 @@ public class AtCommandResponse extends RxFrame<AtCommandResponse> {
     public String toString() {
         return new StringBuffer()
             .append('{')
-            .append("\"frameId\" : ").append(getFrameId()).append(", ")
+            .append("\"frame_id\" : ").append(getFrameId()).append(", ")
             .append("\"command\" : ").append('"').append(new String(command.array())).append('"').append(", ")
             .append("\"status\" : ").append('"').append(getStatus()).append('"').append(", ")
             .append("\"data\" : ").append('"').append(new String(getData())).append('"')

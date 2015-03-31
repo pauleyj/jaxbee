@@ -225,9 +225,9 @@ public class RemoteAtCommandResponse extends RxFrame<RemoteAtCommandResponse> {
     public String toString() {
         return new StringBuffer()
             .append('{')
-            .append("\"frameId\" : ").append(getFrameId()).append(", ")
-            .append("\"sourceAddress64\" : ").append(String.format("0x%08x", sourceAddress64)).append(", ")
-            .append("\"sourceAddress16\" : ").append(String.format("0x%02x", sourceAddress16)).append(", ")
+            .append("\"frame_id\" : ").append(getFrameId()).append(", ")
+            .append("\"source_address_64\" : ").append(String.format("0x%08x", sourceAddress64)).append(", ")
+            .append("\"source_address_16\" : ").append(String.format("0x%02x", sourceAddress16)).append(", ")
             .append("\"command\" : ").append('"').append(new String(command.array())).append('"').append(", ")
             .append("\"status\" : ").append('"').append(getStatus()).append('"').append(", ")
             .append("\"data\" : ").append('"').append(new String(getData())).append('"')

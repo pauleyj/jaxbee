@@ -45,7 +45,7 @@ public class ReceivePacket16IO extends ReceivePacket16 {
 
         return new StringBuffer()
             .append('{')
-            .append("\"sourceAddress16\" : ").append(String.format("0x%04x", getSourceAddress16())).append(", ")
+            .append("\"source_address_16\" : ").append(String.format("0x%04x", getSourceAddress16())).append(", ")
             .append("\"rssi\" : ").append(String.format("0x%02x", getRssi())).append(", ")
             .append("\"options\" : ").append(getOptions()).append(", ")
             .append("\"data\" : ").append('"').append(builder.toString()).append('"')

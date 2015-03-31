@@ -127,7 +127,7 @@ public class ReceivePacket64 extends RxFrame<ReceivePacket64> {
     public String toString() {
         return new StringBuffer()
             .append('{')
-            .append("\"sourceAddress64\" : ").append(String.format("0x%08x", sourceAddress64)).append(", ")
+            .append("\"source_address_64\" : ").append(String.format("0x%08x", sourceAddress64)).append(", ")
             .append("\"rssi\" : ").append(String.format("0x%02x", rssi)).append(", ")
             .append("\"options\" : ").append(options).append(", ")
             .append("\"data\" : ").append('"').append(new String(getData())).append('"')

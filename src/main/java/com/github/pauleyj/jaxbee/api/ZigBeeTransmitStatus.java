@@ -263,11 +263,11 @@ public class ZigBeeTransmitStatus extends RxFrame<ZigBeeTransmitStatus> {
     public String toString() {
         return new StringBuffer()
                 .append('{')
-                .append("\"frameId\" : ").append(getFrameId()).append(", ")
-                .append("\"sourceAddress16\" : ").append(String.format("0x%02x", sourceAddress16)).append(", ")
-                .append("\"transmit retry count\" : ").append('"').append(getTransmitRetryCount()).append('"').append(", ")
-                .append("\"delivery status\" : ").append('"').append(getDeliveryStatus()).append('"').append(", ")
-                .append("\"discovery status\" : ").append('"').append(getDiscoveryStatus()).append('"')
+                .append("\"frame_id\" : ").append(getFrameId()).append(", ")
+                .append("\"source_address_16\" : ").append(String.format("0x%02x", sourceAddress16)).append(", ")
+                .append("\"transmit_retry_count\" : ").append('"').append(getTransmitRetryCount()).append('"').append(", ")
+                .append("\"delivery_status\" : ").append('"').append(getDeliveryStatus()).append('"').append(", ")
+                .append("\"discovery_status\" : ").append('"').append(getDiscoveryStatus()).append('"')
                 .append('}')
                 .toString();
     }
