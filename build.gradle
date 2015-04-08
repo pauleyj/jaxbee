@@ -19,7 +19,7 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 group = "com.github.pauleyj"
-version = '1.0.0'
+version = '1.1.0'
 
 repositories {
     mavenCentral()
@@ -85,7 +85,7 @@ uploadArchives {
                     developer {
                         id 'pauleyj'
                         name 'John Pauley'
-                        email 'pauley@gmail.com'
+                        email 'pauleyj@gmail.com'
                     }
                 }
             }
