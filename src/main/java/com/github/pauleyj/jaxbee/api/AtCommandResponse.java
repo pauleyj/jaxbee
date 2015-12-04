@@ -43,7 +43,7 @@ public class AtCommandResponse extends RxFrame<AtCommandResponse> {
     /**
      * The enum Status.
      */
-    public static enum Status {
+    public enum Status {
         OK,
         ERROR,
         INVALID_COMMAND,
@@ -177,13 +177,25 @@ public class AtCommandResponse extends RxFrame<AtCommandResponse> {
 
     @Override
     public String toString() {
-        return new StringBuffer()
-            .append('{')
-            .append("\"frame_id\" : ").append(getFrameId()).append(", ")
-            .append("\"command\" : ").append('"').append(new String(command.array())).append('"').append(", ")
-            .append("\"status\" : ").append('"').append(getStatus()).append('"').append(", ")
-            .append("\"data\" : ").append('"').append(new String(getData())).append('"')
-            .append('}')
-            .toString();
+        final StringBuffer buffer = new StringBuffer()
+                .append('{')
+                .append("\"frame_id\" : ").append(getFrameId()).append(", ")
+                .append("\"command\" : ").append('"').append(new String(command.array())).append('"').append(", ")
+                .append("\"status\" : ").append('"').append(getStatus()).append('"').append(", ")
+                .append("\"data\" : ");
+        byte[] data = getData();
+        int length = data.length;
+        if (length > 0) {
+            buffer.append('[');
+            for (int i = 0; i < length; ++i) {
+                buffer.append(String.format("0x%02x", data[i]));
+                if (i < length - 1) buffer.append(',');
+            }
+            buffer.append(']');
+        } else {
+            buffer.append("\"\"");
+        }
+        buffer.append('}');
+        return buffer.toString();
     }
 }

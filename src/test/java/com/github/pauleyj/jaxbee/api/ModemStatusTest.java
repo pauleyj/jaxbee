@@ -59,7 +59,7 @@ public class ModemStatusTest {
         status = ModemStatus.Status.from((byte)0x03);
         assertThat(status, is(equalTo(ModemStatus.Status.DISASSOCIATED)));
         status = ModemStatus.Status.from((byte)0x04);
-        assertThat(status, is(equalTo(ModemStatus.Status.SYNCRONIZATION_LOST)));
+        assertThat(status, is(equalTo(ModemStatus.Status.SYNCHRONIZATION_LOST)));
         status = ModemStatus.Status.from((byte)0x05);
         assertThat(status, is(equalTo(ModemStatus.Status.COORDINATOR_REALIGNMENT)));
         status = ModemStatus.Status.from((byte)0x06);

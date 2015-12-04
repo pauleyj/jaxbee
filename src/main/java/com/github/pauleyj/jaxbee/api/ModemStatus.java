@@ -26,7 +26,7 @@ public class ModemStatus extends RxFrame<ModemStatus> {
         WATCHDOG_TIMER_RESET,
         JOINED_NETWORK,
         DISASSOCIATED,
-        SYNCRONIZATION_LOST,
+        SYNCHRONIZATION_LOST,
         COORDINATOR_REALIGNMENT,
         COORDINATOR_STARTED,
         NETWORK_KEY_UPDATED,
@@ -51,7 +51,7 @@ public class ModemStatus extends RxFrame<ModemStatus> {
                 case 3:
                     return DISASSOCIATED;
                 case 4:
-                    return SYNCRONIZATION_LOST;
+                    return SYNCHRONIZATION_LOST;
                 case 5:
                     return COORDINATOR_REALIGNMENT;
                 case 6:

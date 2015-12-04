@@ -24,7 +24,7 @@ import java.nio.ByteBuffer;
  * The type X bee.
  */
 public class XBee {
-    private static final byte START_DELEMITER = (byte) 0x7E;
+    private static final byte START_DELIMITER = (byte) 0x7E;
     private static final byte API_FRAME_WRAPPER_LENGTH = 0x04; // start delimiter 1 byte, length 2 bytes, checksum 1 byte
     private static final byte XBEE_NUMBER_OF_SIZE_BYTES = 0x02;
     private static final byte XBEE_FRAME_VALID_CHECKSUM = (byte) 0xFF;
@@ -69,6 +69,7 @@ public class XBee {
     private byte               rxFrameDataSizeByteIndex;
     // current index of frame data
     private short              rxFrameDataIndex;
+    // calculated checksum
     private byte               rxFrameDataChecksum;
 
     /**
@@ -116,7 +117,7 @@ public class XBee {
         final short length = (short) data.length;
         final ByteBuffer buffer =
                 ByteBuffer.allocate(API_FRAME_WRAPPER_LENGTH + length)
-                        .put(START_DELEMITER)
+                        .put(START_DELIMITER)
                         .putShort(length);
         byte checksum = 0;
         for ( final byte b : data ) {
@@ -230,7 +231,7 @@ public class XBee {
     }
 
     private void handleStateWaitFrameStart(byte b) {
-        if (START_DELEMITER == b) {
+        if (START_DELIMITER == b) {
             // Set up next state
             rxFrameDataSize = 0;
             rxFrameDataSizeByteIndex = 0;
